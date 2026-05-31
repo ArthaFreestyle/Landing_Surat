@@ -27,6 +27,9 @@ export const metadata: Metadata = {
   title: "Surat — Isi formulir tanpa ketik ulang",
   description:
     "Ekstensi Chrome bertenaga AI untuk mengisi formulir web dari KTP, NPWP, dan dokumen Indonesia lainnya secara otomatis.",
+  icons: {
+    icon: "/favicon.webp",
+  },
 };
 
 export default function RootLayout({
