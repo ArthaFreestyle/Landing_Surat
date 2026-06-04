@@ -8,6 +8,7 @@ html, body {
   margin: 0;
   padding: 0;
   background: #f0eee9;
+  overflow-x: hidden;
 }
 
 body {
@@ -348,8 +349,10 @@ body {
   .lp-hero-index .rule { width: 36px; }
   .lp-hero-h1 { font-size: clamp(36px, 10vw, 52px); }
   .lp-hero-sub { font-size: 16px; margin-top: 20px; }
-  .lp-hero-actions { gap: 14px; margin-top: 28px; flex-direction: column; align-items: flex-start; }
-  .lp-hero-actions .lp-btn { width: 100%; }
+  .lp-hero-actions { gap: 12px; margin-top: 28px; flex-direction: column; align-items: stretch; }
+  .lp-hero-actions .lp-btn { width: 100%; padding: 15px 18px; font-size: 15.5px; }
+  .lp-hero-link { justify-content: center; width: 100%; }
+  .lp-hero-stage { width: 100%; max-width: 360px; padding: 0; }
   .lp-hero-meta { gap: 6px 12px; margin-top: 24px; font-size: 11px; }
   .lp-btn-lg { padding: 15px 22px; font-size: 15px; }
   .lp-faq-q { font-size: 16.5px; padding: 20px 2px; }
@@ -361,7 +364,9 @@ body {
 @media (max-width: 480px) {
   .lp-container, .lp-container-narrow { padding: 0 16px; }
   .lp-section { padding: 48px 0; }
-  .lp-hero-h1 { font-size: clamp(34px, 9.5vw, 46px); }
+  .lp-hero-h1 { font-size: clamp(32px, 9vw, 42px); }
+  .lp-hero-h1 br { display: none; }
+  .lp-hero-stage { max-width: 320px; }
   .lp-footer-grid { grid-template-columns: 1fr !important; gap: 28px !important; }
   .lp-footer-bottom { font-size: 12px !important; }
   .lp-dock-page { display: none; }

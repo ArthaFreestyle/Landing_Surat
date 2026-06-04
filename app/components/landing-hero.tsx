@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { SURAT } from "@/app/lib/tokens";
 import { Icon } from "./icons";
 import { LIcon } from "./landing-icons";
@@ -22,6 +23,17 @@ function DockPageSkeleton() {
 }
 
 export function Hero() {
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== "undefined" && window.innerWidth <= 640
+  );
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 640px)");
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+
   return (
     <header className="lp-hero">
       <div className="lp-hero-bg" />
@@ -49,7 +61,7 @@ export function Hero() {
             </button>
             <a
               href="#cara-kerja"
-              className="lp-link"
+              className="lp-link lp-hero-link"
               style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 15.5, fontWeight: 500, color: SURAT.ink }}
             >
               Lihat cara kerja
@@ -66,39 +78,45 @@ export function Hero() {
         </div>
 
         <div className="lp-hero-stage">
-          <ScaledShot w={530} h={760} maxW={486} frame={true} align="center">
-            <div className="lp-dock" style={{ width: 530, height: 760 }}>
-              <div className="lp-dock-bar">
-                <div className="lp-dock-lights">
-                  <span style={{ background: "#e8765a" }} />
-                  <span style={{ background: "#e0b13b" }} />
-                  <span style={{ background: "#6db465" }} />
+          {isMobile ? (
+            <ScaledShot w={380} h={720} maxW={360} frame={true} align="center" cropH={640}>
+              <InteractivePopup initial="preview" />
+            </ScaledShot>
+          ) : (
+            <ScaledShot w={530} h={760} maxW={486} frame={true} align="center">
+              <div className="lp-dock" style={{ width: 530, height: 760 }}>
+                <div className="lp-dock-bar">
+                  <div className="lp-dock-lights">
+                    <span style={{ background: "#e8765a" }} />
+                    <span style={{ background: "#e0b13b" }} />
+                    <span style={{ background: "#6db465" }} />
+                  </div>
+                  <div className="lp-dock-url">
+                    <span style={{ color: SURAT.ink3 }}>https://</span>app.kredivo.com/identitas
+                  </div>
+                  <div
+                    style={{
+                      width: 24, height: 24, borderRadius: 6,
+                      background: SURAT.accentSoft, color: SURAT.accent,
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      boxShadow: "0 0 0 1.5px rgba(193,95,60,0.5)",
+                    }}
+                  >
+                    <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="3" y="4" width="18" height="16" rx="2" />
+                      <line x1="15" y1="4" x2="15" y2="20" />
+                    </svg>
+                  </div>
                 </div>
-                <div className="lp-dock-url">
-                  <span style={{ color: SURAT.ink3 }}>https://</span>app.kredivo.com/identitas
-                </div>
-                <div
-                  style={{
-                    width: 24, height: 24, borderRadius: 6,
-                    background: SURAT.accentSoft, color: SURAT.accent,
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    boxShadow: "0 0 0 1.5px rgba(193,95,60,0.5)",
-                  }}
-                >
-                  <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                    <rect x="3" y="4" width="18" height="16" rx="2" />
-                    <line x1="15" y1="4" x2="15" y2="20" />
-                  </svg>
+                <div className="lp-dock-body" style={{ height: 720 }}>
+                  <DockPageSkeleton />
+                  <div style={{ width: 380, flexShrink: 0, boxShadow: "-8px 0 24px rgba(60,50,40,0.08)" }}>
+                    <InteractivePopup initial="preview" />
+                  </div>
                 </div>
               </div>
-              <div className="lp-dock-body" style={{ height: 720 }}>
-                <DockPageSkeleton />
-                <div style={{ width: 380, flexShrink: 0, boxShadow: "-8px 0 24px rgba(60,50,40,0.08)" }}>
-                  <InteractivePopup initial="preview" />
-                </div>
-              </div>
-            </div>
-          </ScaledShot>
+            </ScaledShot>
+          )}
 
           <div className="lp-anno" style={{ top: 92, left: -30 }}>
             <span
