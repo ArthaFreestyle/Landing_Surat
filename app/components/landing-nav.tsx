@@ -23,9 +23,9 @@ export function LandingNav() {
           <a className="lp-link" href="#harga">Harga</a>
           <a className="lp-link" href="#faq">FAQ</a>
         </div>
-        <button className="lp-btn lp-btn-primary" style={{ padding: "11px 18px", fontSize: 14.5 }}>
+        <button className="lp-btn lp-btn-primary lp-nav-cta" style={{ padding: "11px 18px", fontSize: 14.5 }}>
           <LIcon.Puzzle width={17} height={17} />
-          Tambahkan ke Chrome
+          <span className="lp-nav-cta-label">Tambahkan ke Chrome</span>
         </button>
       </div>
     </nav>

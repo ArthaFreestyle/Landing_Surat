@@ -35,7 +35,7 @@ export function FinalCTA() {
               Berhenti mengetik ulang<br />data yang itu-itu saja.
             </h2>
             <p style={{ fontSize: "clamp(16px, 2vw, 19px)", lineHeight: 1.55, color: "rgba(245,239,224,.7)", margin: "20px auto 0", maxWidth: 520 }}>
-              Pasang Surat, unggah satu dokumen, dan biarkan formulir berikutnya terisi sendiri.
+              Pasang Surat, foto satu dokumen, dan biarkan form berikutnya — atau spreadsheet stok Anda — terisi sendiri.
             </p>
             <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", marginTop: 34 }}>
               <button className="lp-btn lp-btn-dark lp-btn-lg">
@@ -44,7 +44,7 @@ export function FinalCTA() {
               </button>
             </div>
             <p style={{ fontSize: 13.5, color: "rgba(245,239,224,.5)", marginTop: 18 }}>
-              Gratis 10 scan per bulan · Tanpa kartu kredit
+              Gratis 15 scan per bulan · Tanpa kartu kredit
             </p>
           </div>
         </div>
@@ -55,25 +55,26 @@ export function FinalCTA() {
 
 export function Footer() {
   const cols = [
-    { h: "Produk",     items: ["Cara kerja", "Harga", "Tipe dokumen", "Unduh ekstensi"] },
-    { h: "Perusahaan", items: ["Tentang", "Blog", "Karier", "Kontak"] },
-    { h: "Bantuan",    items: ["Pusat bantuan", "Privasi", "Ketentuan", "Status"] },
+    { h: "Produk",    items: ["Cara kerja", "Harga", "Tipe dokumen", "Unduh ekstensi"] },
+    { h: "Use case",  items: ["Form fintech & KYC", "Nota → Google Sheets", "Foto struk → CSV", "Onboarding HR"] },
+    { h: "Bantuan",   items: ["Pusat bantuan", "Privasi", "Ketentuan", "Status"] },
   ];
 
   return (
     <footer style={{ borderTop: `1px solid ${SURAT.border}`, background: SURAT.canvasBg }}>
       <div className="lp-container" style={{ padding: "56px 32px 40px" }}>
         <div
+          className="lp-footer-grid"
           style={{
             display: "grid",
             gridTemplateColumns: "minmax(220px, 1.4fr) repeat(3, minmax(120px, 1fr))",
             gap: 40,
           }}
         >
-          <div>
+          <div className="lp-footer-brand">
             <Wordmark size={24} />
             <p style={{ fontSize: 14, lineHeight: 1.6, color: SURAT.ink2, margin: "16px 0 0", maxWidth: 260 }}>
-              Asisten pengisian formulir bertenaga AI untuk dokumen Indonesia.
+              Asisten pengisian form &amp; spreadsheet bertenaga AI untuk dokumen Indonesia.
             </p>
           </div>
           {cols.map((c) => (

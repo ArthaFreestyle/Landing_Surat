@@ -24,9 +24,9 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Surat — Isi formulir tanpa ketik ulang",
+  title: "Surat — Isi formulir & spreadsheet tanpa ketik ulang",
   description:
-    "Ekstensi Chrome bertenaga AI untuk mengisi formulir web dari KTP, NPWP, dan dokumen Indonesia lainnya secara otomatis.",
+    "Ekstensi Chrome bertenaga AI untuk mengisi formulir & spreadsheet dari KTP, nota, struk, dan dokumen Indonesia lainnya secara otomatis.",
   icons: {
     icon: "/favicon.webp",
   },

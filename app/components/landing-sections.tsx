@@ -8,7 +8,7 @@ import { PopupFrame } from "./popup-shell";
 import { ScreenMain, ScreenPreview, ScreenSuccess } from "./popup-screens";
 
 export function DocStrip() {
-  const docs = ["KTP", "NPWP", "Kartu Keluarga", "Ijazah", "SIM", "Paspor", "Invoice", "Rekening koran"];
+  const docs = ["KTP", "NPWP", "Kartu Keluarga", "Ijazah", "Invoice", "Nota barang", "Struk kasir", "Catatan stok"];
   return (
     <section style={{ borderTop: `1px solid ${SURAT.border}`, borderBottom: `1px solid ${SURAT.border}`, background: SURAT.popupBg }}>
       <div className="lp-container" style={{ padding: "34px 32px", textAlign: "center" }}>
@@ -32,19 +32,19 @@ export function HowItWorks() {
     {
       n: "01", icon: <LIcon.Upload width={22} height={22} />,
       title: "Unggah dokumen",
-      body: "Tarik KTP, NPWP, atau PDF ke side panel — atau pilih file. Mendukung JPG, PNG, dan PDF hingga 10 MB.",
+      body: "Tarik foto KTP, nota belanja, struk, atau PDF apa pun ke panel Surat. Mendukung JPG, PNG, HEIC, WEBP, dan PDF hingga 10 MB.",
       shot: <ScreenMain />,
     },
     {
       n: "02", icon: <LIcon.Scan width={22} height={22} />,
-      title: "Surat membaca & mengenali",
-      body: "AI mengekstrak setiap field, mencocokkannya dengan formulir di halaman, dan memberi skor keyakinan agar Anda tahu mana yang perlu dicek.",
+      title: "Surat membaca dengan AI",
+      body: "Gemini mengekstrak field dari dokumen identitas — atau baris demi baris dari nota dan struk — lalu mencocokkannya dengan form atau kolom spreadsheet yang sedang Anda buka.",
       shot: <ScreenPreview />,
     },
     {
       n: "03", icon: <LIcon.Wand width={22} height={22} />,
-      title: "Form terisi otomatis",
-      body: "Tinjau hasilnya, sesuaikan bila perlu, lalu isi semua field dengan satu klik. Ada tombol undo bila Anda berubah pikiran.",
+      title: "Form atau spreadsheet terisi",
+      body: "Tinjau hasilnya, lalu isi form dengan satu klik — atau tambahkan baris ke Google Sheets. Bisa juga unduh sebagai CSV/XLSX. Ada tombol undo dalam 10 detik.",
       shot: <ScreenSuccess />,
     },
   ];
@@ -58,11 +58,11 @@ export function HowItWorks() {
             className="lp-serif"
             style={{ fontSize: "clamp(32px, 4.4vw, 50px)", fontWeight: 500, lineHeight: 1.06, margin: 0, color: SURAT.ink }}
           >
-            Tiga langkah dari dokumen ke form terisi.
+            Tiga langkah dari dokumen ke data terisi.
           </h2>
           <p style={{ fontSize: 18, lineHeight: 1.55, color: SURAT.ink2, margin: "18px 0 0" }}>
             Tidak ada penyiapan, tidak ada salin-tempel. Surat bekerja di panel samping browser,
-            di sisi formulir yang sedang Anda isi.
+            di sisi form atau spreadsheet yang sedang Anda isi.
           </p>
         </div>
 
@@ -88,10 +88,10 @@ export function HowItWorks() {
 
 export function Privacy() {
   const points = [
-    { icon: <LIcon.Trash width={20} height={20} />, title: "Tidak disimpan di server", body: "Dokumen Anda diproses saat itu juga lalu langsung dihapus. Tidak ada arsip, tidak ada cadangan." },
-    { icon: <LIcon.Eye width={20} height={20} />,   title: "Anda meninjau setiap field", body: "Surat tidak pernah mengisi diam-diam. Setiap nilai bisa Anda cek, edit, atau matikan sebelum dikirim." },
-    { icon: <LIcon.Bolt width={20} height={20} />,  title: "Diproses real-time", body: "Ekstraksi berjalan sekali jalan, hanya saat Anda memintanya — bukan pemantauan terus-menerus." },
-    { icon: <Icon.Undo width={20} height={20} />,   title: "Selalu bisa dibatalkan", body: "Salah isi? Satu ketukan mengembalikan form ke kondisi semula dalam beberapa detik." },
+    { icon: <LIcon.Trash width={20} height={20} />, title: "Tidak disimpan di server", body: "Foto dan dokumen Anda diproses in-memory lalu langsung dihapus. Tidak ada arsip, tidak ada cadangan, tidak ada riwayat." },
+    { icon: <LIcon.Eye width={20} height={20} />,   title: "Anda meninjau setiap nilai", body: "Surat tidak pernah mengisi diam-diam. Setiap field atau baris bisa Anda cek, edit, atau matikan sebelum dikirim ke form maupun spreadsheet." },
+    { icon: <LIcon.Bolt width={20} height={20} />,  title: "Transparan soal AI", body: "Dokumen melewati Gemini untuk dibaca — sekali jalan, hanya saat Anda meminta. Tidak ada pemantauan terus-menerus, dan ini diungkap jelas di privacy policy." },
+    { icon: <Icon.Undo width={20} height={20} />,   title: "Selalu bisa dibatalkan", body: "Salah isi atau salah baris? Tombol undo dalam 10 detik mengembalikan form atau spreadsheet ke kondisi semula." },
   ];
 
   return (
@@ -101,10 +101,10 @@ export function Privacy() {
       style={{ background: SURAT.popupBg, borderTop: `1px solid ${SURAT.border}`, borderBottom: `1px solid ${SURAT.border}` }}
     >
       <div
-        className="lp-container"
+        className="lp-container lp-privacy-grid"
         style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1.1fr)", gap: 64, alignItems: "start" }}
       >
-        <div style={{ position: "sticky", top: 100 }}>
+        <div className="lp-privacy-sticky" style={{ position: "sticky", top: 100 }}>
           <div className="lp-eyebrow" style={{ marginBottom: 16 }}><span className="dot" />Privasi &amp; keamanan</div>
           <h2
             className="lp-serif"
@@ -113,8 +113,8 @@ export function Privacy() {
             Data Anda tetap milik Anda.
           </h2>
           <p style={{ fontSize: 18, lineHeight: 1.55, color: SURAT.ink2, margin: "18px 0 0" }}>
-            Dokumen identitas itu sensitif. Surat dirancang agar Anda mendapat kecepatan AI
-            tanpa menyerahkan kendali atas data pribadi.
+            Foto KTP, nota toko, atau struk kasir itu sensitif. Surat dirancang agar Anda
+            mendapat kecepatan AI tanpa menyerahkan kendali atas data pribadi maupun bisnis.
           </p>
           <div
             style={{
