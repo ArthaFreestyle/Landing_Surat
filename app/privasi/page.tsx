@@ -10,17 +10,17 @@ export const metadata: Metadata = {
 };
 
 const SECTIONS = [
-  { n: "01", id: "pendahuluan",    title: "Pendahuluan" },
-  { n: "02", id: "data",           title: "Data yang kami kumpulkan" },
-  { n: "03", id: "pemrosesan",     title: "Bagaimana dokumen Anda diproses" },
-  { n: "04", id: "sub-processor",  title: "Pihak ketiga (sub-processor)" },
-  { n: "05", id: "retensi",        title: "Penyimpanan & retensi" },
-  { n: "06", id: "hak-anda",       title: "Hak Anda" },
-  { n: "07", id: "keamanan",       title: "Keamanan" },
-  { n: "08", id: "cookies",        title: "Cookies & analitik" },
-  { n: "09", id: "anak",           title: "Anak-anak" },
-  { n: "10", id: "perubahan",      title: "Perubahan kebijakan" },
-  { n: "11", id: "kontak",         title: "Kontak" },
+  { n: "01", id: "pendahuluan", title: "Pendahuluan" },
+  { n: "02", id: "data", title: "Data yang kami kumpulkan" },
+  { n: "03", id: "pemrosesan", title: "Bagaimana dokumen Anda diproses" },
+  { n: "04", id: "sub-processor", title: "Pihak ketiga (sub-processor)" },
+  { n: "05", id: "retensi", title: "Penyimpanan & retensi" },
+  { n: "06", id: "hak-anda", title: "Hak Anda" },
+  { n: "07", id: "keamanan", title: "Keamanan" },
+  { n: "08", id: "cookies", title: "Cookies & analitik" },
+  { n: "09", id: "anak", title: "Anak-anak" },
+  { n: "10", id: "perubahan", title: "Perubahan kebijakan" },
+  { n: "11", id: "kontak", title: "Kontak" },
 ];
 
 function PrivacyHero() {
@@ -282,7 +282,7 @@ function PrivacyBody() {
         </ul>
         <p>
           Permintaan dapat dikirim ke{" "}
-          <a href="mailto:privasi@surat.id">privasi@surat.id</a>.
+          <a href="mailto:arumifathina@gmail.com">arumifathina@gmail.com</a>.
           Kami berusaha merespons dalam 7 hari kerja, paling lambat 30 hari sebagaimana
           diatur UU PDP.
         </p>
@@ -357,11 +357,11 @@ function PrivacyBody() {
         <div className="lp-pp-contact">
           <div>
             <div className="label">Email privasi</div>
-            <div className="val">privasi@surat.id</div>
+            <div className="val">arumifathina@gmail.com</div>
           </div>
           <div>
             <div className="label">Dukungan umum</div>
-            <div className="val">halo@surat.id</div>
+            <div className="val">arumifathina@gmail.com</div>
           </div>
           <div>
             <div className="label">Penanggung jawab data</div>
