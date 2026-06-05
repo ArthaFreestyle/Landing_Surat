@@ -342,18 +342,18 @@ body {
 
 @media (max-width: 640px) {
   .lp-section { padding: 56px 0; }
-  .lp-container, .lp-container-narrow { padding: 0 18px; }
+  .lp-container, .lp-container-narrow { padding: 0 24px; }
   .lp-nav-inner { height: 60px; }
-  .lp-hero-grid { gap: 36px; padding-top: 28px; }
-  .lp-hero-index { margin-bottom: 20px; font-size: 11px; }
+  .lp-hero-grid { gap: 44px; padding-top: 44px; padding-bottom: 20px; }
+  .lp-hero-index { margin-bottom: 28px; font-size: 11px; }
   .lp-hero-index .rule { width: 36px; }
-  .lp-hero-h1 { font-size: clamp(36px, 10vw, 52px); }
-  .lp-hero-sub { font-size: 16px; margin-top: 20px; }
-  .lp-hero-actions { gap: 12px; margin-top: 28px; flex-direction: column; align-items: stretch; }
+  .lp-hero-h1 { font-size: clamp(36px, 10vw, 52px); line-height: 1.06; }
+  .lp-hero-sub { font-size: 16px; margin-top: 28px; line-height: 1.65; }
+  .lp-hero-actions { gap: 12px; margin-top: 36px; flex-direction: column; align-items: stretch; }
   .lp-hero-actions .lp-btn { width: 100%; padding: 15px 18px; font-size: 15.5px; }
   .lp-hero-link { justify-content: center; width: 100%; }
   .lp-hero-stage { width: 100%; max-width: 360px; padding: 0; }
-  .lp-hero-meta { gap: 6px 12px; margin-top: 24px; font-size: 11px; }
+  .lp-hero-meta { gap: 6px 12px; margin-top: 32px; font-size: 11px; }
   .lp-btn-lg { padding: 15px 22px; font-size: 15px; }
   .lp-faq-q { font-size: 16.5px; padding: 20px 2px; }
   .lp-faq-a-inner { font-size: 15px; padding: 0 2px 22px; }
@@ -362,10 +362,14 @@ body {
 }
 
 @media (max-width: 480px) {
-  .lp-container, .lp-container-narrow { padding: 0 16px; }
+  .lp-container, .lp-container-narrow { padding: 0 20px; }
   .lp-section { padding: 48px 0; }
+  .lp-hero-grid { padding-top: 36px; }
   .lp-hero-h1 { font-size: clamp(32px, 9vw, 42px); }
   .lp-hero-h1 br { display: none; }
+  .lp-hero-sub { margin-top: 24px; }
+  .lp-hero-actions { margin-top: 32px; }
+  .lp-hero-meta { margin-top: 28px; }
   .lp-hero-stage { max-width: 320px; }
   .lp-footer-grid { grid-template-columns: 1fr !important; gap: 28px !important; }
   .lp-footer-bottom { font-size: 12px !important; }
