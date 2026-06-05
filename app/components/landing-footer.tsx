@@ -74,7 +74,7 @@ export function Footer() {
           <div className="lp-footer-brand">
             <Wordmark size={24} />
             <p style={{ fontSize: 14, lineHeight: 1.6, color: SURAT.ink2, margin: "16px 0 0", maxWidth: 260 }}>
-              Asisten pengisian form &amp; spreadsheet bertenaga AI untuk dokumen Indonesia.
+              Asisten pengisian form &amp; spreadsheet untuk dokumen Indonesia.
             </p>
           </div>
           {cols.map((c) => (

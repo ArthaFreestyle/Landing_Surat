@@ -37,8 +37,8 @@ export function HowItWorks() {
     },
     {
       n: "02", icon: <LIcon.Scan width={22} height={22} />,
-      title: "Surat membaca dengan AI",
-      body: "Gemini mengekstrak field dari dokumen identitas — atau baris demi baris dari nota dan struk — lalu mencocokkannya dengan form atau kolom spreadsheet yang sedang Anda buka.",
+      title: "Surat membaca isinya",
+      body: "Field dari dokumen identitas — atau baris demi baris dari nota dan struk — dikenali dan dicocokkan dengan form atau kolom spreadsheet yang sedang Anda buka.",
       shot: <ScreenPreview />,
     },
     {
@@ -88,9 +88,9 @@ export function HowItWorks() {
 
 export function Privacy() {
   const points = [
-    { icon: <LIcon.Trash width={20} height={20} />, title: "Tidak disimpan di server", body: "Foto dan dokumen Anda diproses in-memory lalu langsung dihapus. Tidak ada arsip, tidak ada cadangan, tidak ada riwayat." },
+    { icon: <LIcon.Trash width={20} height={20} />, title: "Dokumen tidak disimpan", body: "Foto dan dokumen Anda hanya dipakai sesaat untuk mengisi data, lalu langsung dilepas. Tidak ada arsip, tidak ada cadangan, tidak ada riwayat." },
     { icon: <LIcon.Eye width={20} height={20} />,   title: "Anda meninjau setiap nilai", body: "Surat tidak pernah mengisi diam-diam. Setiap field atau baris bisa Anda cek, edit, atau matikan sebelum dikirim ke form maupun spreadsheet." },
-    { icon: <LIcon.Bolt width={20} height={20} />,  title: "Transparan soal AI", body: "Dokumen melewati Gemini untuk dibaca — sekali jalan, hanya saat Anda meminta. Tidak ada pemantauan terus-menerus, dan ini diungkap jelas di privacy policy." },
+    { icon: <LIcon.Bolt width={20} height={20} />,  title: "Hanya saat Anda meminta", body: "Surat bekerja sekali jalan setiap kali Anda menekan tombolnya. Tidak ada pemantauan terus-menerus terhadap apa yang Anda buka di browser." },
     { icon: <Icon.Undo width={20} height={20} />,   title: "Selalu bisa dibatalkan", body: "Salah isi atau salah baris? Tombol undo dalam 10 detik mengembalikan form atau spreadsheet ke kondisi semula." },
   ];
 
@@ -114,7 +114,7 @@ export function Privacy() {
           </h2>
           <p style={{ fontSize: 18, lineHeight: 1.55, color: SURAT.ink2, margin: "18px 0 0" }}>
             Foto KTP, nota toko, atau struk kasir itu sensitif. Surat dirancang agar Anda
-            mendapat kecepatan AI tanpa menyerahkan kendali atas data pribadi maupun bisnis.
+            mendapat kecepatan otomatis tanpa menyerahkan kendali atas data pribadi maupun bisnis.
           </p>
           <div
             style={{

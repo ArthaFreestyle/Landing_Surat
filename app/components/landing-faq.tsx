@@ -6,13 +6,13 @@ import { LIcon } from "./landing-icons";
 
 export function FAQ() {
   const items = [
-    { q: "Apakah dokumen saya aman?", a: "Ya. Foto dan dokumen Anda diproses in-memory lalu langsung dihapus — tidak disimpan di server kami. Surat memakai Gemini untuk membaca dokumen; hal ini diungkapkan jelas di privacy policy, dan Anda meninjau setiap field atau baris sebelum dimasukkan ke form atau spreadsheet." },
+    { q: "Apakah dokumen saya aman?", a: "Ya. Foto dan dokumen Anda hanya dipakai sesaat untuk mengisi data, lalu langsung dilepas — tidak disimpan di server kami. Anda juga selalu meninjau setiap field atau baris sebelum dimasukkan ke form atau spreadsheet. Detail lengkapnya ada di privacy policy." },
     { q: "Dokumen apa saja yang didukung?", a: "Dokumen identitas: KTP, NPWP, Kartu Keluarga, ijazah, dan transkrip nilai. Dokumen transaksional: invoice, nota barang masuk / surat jalan, struk kasir, dan catatan stok harian. Paspor, SIM, dan akta kelahiran menyusul di v1.1." },
     { q: "Bisakah Surat mengisi Google Sheets?", a: "Bisa. Saat tab aktif adalah Google Sheets atau Excel Online, Surat mendeteksi header kolom Anda, memetakan data dokumen ke kolom yang relevan, lalu menambahkannya sebagai baris baru. Cocok untuk memindahkan nota barang masuk, struk kasir, atau catatan stok ke spreadsheet — sekali foto, langsung jadi baris." },
     { q: "Apakah Surat bekerja di semua situs?", a: "Surat bekerja pada formulir web standar — situs pemerintah, fintech, perbankan, portal HR — dan pada Google Sheets serta Excel Online untuk mode spreadsheet. Bila tidak ada target yang terdeteksi, Anda tetap bisa mengunduh hasilnya sebagai CSV, XLSX, atau JSON." },
     { q: "Format file apa yang bisa diunggah?", a: "JPG, PNG, WEBP, HEIC, dan PDF (single atau multi-page) hingga 10 MB. Anda bisa memotret dokumen langsung dengan kamera ponsel atau mengunggah pindaian dan berkas digital." },
     { q: "Apakah benar-benar gratis?", a: "Paket gratis memberi 15 scan setiap bulan tanpa kartu kredit — cukup untuk sebagian besar individu. Bila Anda sering mengisi form atau memindahkan banyak nota ke spreadsheet, paket Pro membuka 200 scan/bulan dan template kolom tersimpan." },
-    { q: "Seberapa akurat hasilnya?", a: "Setiap field dan baris diberi skor keyakinan. Yang tinggi diisi otomatis; yang rendah ditandai \"perlu cek\" agar Anda verifikasi sebelum mengirim. Bila confidence rendah, Surat otomatis fallback ke model Gemini yang lebih kuat. Untuk nota tulisan tangan, Anda selalu bisa edit baris sebelum insert." },
+    { q: "Seberapa akurat hasilnya?", a: "Setiap field dan baris diberi skor keyakinan. Yang tinggi diisi otomatis; yang rendah ditandai \"perlu cek\" agar Anda verifikasi sebelum mengirim. Untuk nota tulisan tangan, Anda selalu bisa edit baris sebelum insert." },
   ];
 
   const [open, setOpen] = useState(0);

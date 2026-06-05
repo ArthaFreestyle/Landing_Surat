@@ -329,7 +329,7 @@ export function ScreenProcessing({ stage = 1 }: { stage?: number }) {
       >
         <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
           <Icon.Sparkle width={12} height={12} style={{ color: SURAT.accent }} />
-          <span>Gemini 3.1 Flash-Lite</span>
+          <span>Memproses dokumen</span>
         </div>
         <span className="sx-mono">~2.4s</span>
       </div>

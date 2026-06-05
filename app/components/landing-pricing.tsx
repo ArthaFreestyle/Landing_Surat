@@ -23,7 +23,7 @@ export function Pricing() {
       cta: "Pilih Pro",
       primary: true,
       badge: "Paling populer",
-      features: ["200 scan per bulan", "Semua tipe dokumen", "Mode form, spreadsheet & export", "Preview & edit sebelum isi", "Riwayat dokumen", "Dukungan prioritas"],
+      features: ["200 scan per bulan", "Akurasi prioritas", "Template kolom spreadsheet tersimpan", "Riwayat dokumen", "Dukungan prioritas"],
     },
     {
       name: "Tim",

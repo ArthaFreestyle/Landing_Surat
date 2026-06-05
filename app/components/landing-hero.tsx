@@ -5,6 +5,7 @@ import { SURAT } from "@/app/lib/tokens";
 import { Icon } from "./icons";
 import { LIcon } from "./landing-icons";
 import { ScaledShot } from "./scaled-shot";
+import { PopupFrame } from "./popup-shell";
 import { InteractivePopup } from "./popup-app";
 
 function DockPageSkeleton() {
@@ -50,7 +51,7 @@ export function Hero() {
             ketik ulang.
           </h1>
           <p className="lp-hero-sub">
-            Foto KTP, nota, atau struk Anda. Surat membacanya dengan AI lalu mengisi form
+            Foto KTP, nota, atau struk Anda. Surat membacanya lalu mengisi form
             yang sedang Anda buka — atau menambahkannya sebagai baris di Google Sheets.
           </p>
           <div className="lp-hero-actions">
@@ -72,14 +73,16 @@ export function Hero() {
             <span className="sep" />
             <span>Tanpa kartu kredit</span>
             <span className="sep" />
-            <span>Dokumen tidak disimpan</span>
+            <span>Privasi terjaga</span>
           </div>
         </div>
 
         <div className="lp-hero-stage">
           {isMobile ? (
-            <ScaledShot w={380} h={720} maxW={360} frame={true} align="center" cropH={640}>
-              <InteractivePopup initial="preview" />
+            <ScaledShot w={380} h={640} frame={true} align="center" cropH={640}>
+              <PopupFrame width={380} height={640}>
+                <InteractivePopup initial="preview" />
+              </PopupFrame>
             </ScaledShot>
           ) : (
             <ScaledShot w={530} h={760} maxW={486} frame={true} align="center">
