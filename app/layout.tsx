@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   description:
     "Ekstensi Chrome bertenaga AI untuk mengisi formulir & spreadsheet dari KTP, nota, struk, dan dokumen Indonesia lainnya secara otomatis.",
   icons: {
-    icon: "/favicon.webp",
+    icon: "/surat-icon.webp",
   },
 };
 
