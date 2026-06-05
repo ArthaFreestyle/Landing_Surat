@@ -47,12 +47,12 @@ export function Hero() {
           </div>
           <h1 className="lp-hero-h1">
             Isi formulir<br />
-            &amp; spreadsheet, <span style={{ fontStyle: "italic", color: SURAT.accent }}>tanpa</span><br />
+            apa pun, <span style={{ fontStyle: "italic", color: SURAT.accent }}>tanpa</span><br />
             ketik ulang.
           </h1>
           <p className="lp-hero-sub">
-            Foto KTP, nota, atau struk Anda. Surat membacanya lalu mengisi form
-            yang sedang Anda buka — atau menambahkannya sebagai baris di Google Sheets.
+            Unggah KTP, NPWP, atau dokumen apa saja. Surat membacanya dengan AI lalu
+            mengisi form yang sedang Anda buka — dalam hitungan detik.
           </p>
           <div className="lp-hero-actions">
             <button className="lp-btn lp-btn-primary lp-btn-lg">
@@ -69,11 +69,11 @@ export function Hero() {
             </a>
           </div>
           <div className="lp-hero-meta">
-            <span>Gratis 15 scan/bulan</span>
+            <span>Gratis 10 scan</span>
             <span className="sep" />
             <span>Tanpa kartu kredit</span>
             <span className="sep" />
-            <span>Privasi terjaga</span>
+            <span>Dokumen tidak disimpan</span>
           </div>
         </div>
 

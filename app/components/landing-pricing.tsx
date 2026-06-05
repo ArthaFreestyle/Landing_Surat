@@ -14,24 +14,25 @@ export function Pricing() {
       price: { m: 0, y: 0 },
       cta: "Mulai gratis",
       primary: false,
-      features: ["15 scan per bulan", "Semua tipe dokumen", "Mode form, spreadsheet & export", "Preview & edit sebelum isi", "Undo dalam 10 detik"],
+      features: ["10 scan per bulan", "Semua tipe dokumen", "Preview & edit field", "Undo autofill"],
     },
     {
       name: "Pro",
-      tagline: "Untuk yang sering isi form & nota",
+      tagline: "Untuk yang sering isi form",
       price: { m: 49000, y: 39000 },
       cta: "Pilih Pro",
       primary: true,
       badge: "Paling populer",
-      features: ["200 scan per bulan", "Akurasi prioritas", "Template kolom spreadsheet tersimpan", "Riwayat dokumen", "Dukungan prioritas"],
+      features: ["Scan tak terbatas", "Akurasi prioritas", "Riwayat dokumen", "Template form tersimpan", "Dukungan prioritas"],
     },
     {
       name: "Tim",
-      tagline: "Untuk HR, koperasi, UMKM & toko",
-      price: { m: 149000, y: 119000 },
+      tagline: "Untuk HR, admin & UMKM",
+      price: { m: 35000, y: 29000 },
+      perUser: true,
       cta: "Hubungi kami",
       primary: false,
-      features: ["Scan tak terbatas", "Akses API", "Penagihan terpusat", "Dashboard admin", "Onboarding tim"],
+      features: ["Semua fitur Pro", "Penagihan terpusat", "Dashboard admin", "Kontrol akses anggota", "Onboarding tim"],
     },
   ];
 
@@ -113,7 +114,7 @@ export function Pricing() {
                   </span>
                   {price > 0 && (
                     <span style={{ fontSize: 14, color: isPro ? "rgba(245,239,224,.6)" : SURAT.ink3 }}>
-                      /bln
+                      /{"perUser" in p && p.perUser ? "pengguna/" : ""}bln
                     </span>
                   )}
                 </div>
