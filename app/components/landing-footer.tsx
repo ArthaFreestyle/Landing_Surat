@@ -54,10 +54,10 @@ export function FinalCTA() {
 }
 
 export function Footer() {
-  const cols = [
-    { h: "Produk",    items: ["Cara kerja", "Harga", "Tipe dokumen", "Unduh ekstensi"] },
-    { h: "Use case",  items: ["Form fintech & KYC", "Nota → Google Sheets", "Foto struk → CSV", "Onboarding HR"] },
-    { h: "Bantuan",   items: ["Pusat bantuan", "Privasi", "Ketentuan", "Status"] },
+  const cols: { h: string; items: { label: string; href?: string }[] }[] = [
+    { h: "Produk",  items: [{ label: "Cara kerja" }, { label: "Harga" }, { label: "Tipe dokumen" }, { label: "Blog" }] },
+    { h: "Company", items: [{ label: "Team" }, { label: "Instagram" }] },
+    { h: "Legal",   items: [{ label: "Terms", href: "/privasi" }, { label: "Privacy", href: "/privasi" }] },
   ];
 
   return (
@@ -82,8 +82,8 @@ export function Footer() {
               <div style={{ fontSize: 13, fontWeight: 600, color: SURAT.ink, marginBottom: 14 }}>{c.h}</div>
               <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 11 }}>
                 {c.items.map((it) => (
-                  <li key={it}>
-                    <a className="lp-link" style={{ fontSize: 14 }}>{it}</a>
+                  <li key={it.label}>
+                    <a className="lp-link" href={it.href} style={{ fontSize: 14 }}>{it.label}</a>
                   </li>
                 ))}
               </ul>

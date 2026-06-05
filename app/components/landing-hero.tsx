@@ -46,13 +46,13 @@ export function Hero() {
             <span>Ekstensi Chrome</span>
           </div>
           <h1 className="lp-hero-h1">
-            Isi formulir<br />
-            &amp; spreadsheet, <span style={{ fontStyle: "italic", color: SURAT.accent }}>tanpa</span><br />
-            ketik ulang.
+            Semua dokumen<br />
+            Anda, terisi <span style={{ fontStyle: "italic", color: SURAT.accent }}>otomatis</span>.
           </h1>
           <p className="lp-hero-sub">
-            Foto KTP, nota, atau struk Anda. Surat membacanya lalu mengisi form
-            yang sedang Anda buka — atau menambahkannya sebagai baris di Google Sheets.
+            Foto nota, struk, atau scan dokumen Anda. Surat membacanya lalu mengisi
+            formulir online, menambah baris di Google Sheets, hingga membuat
+            dokumen Word — tanpa ketik ulang.
           </p>
           <div className="lp-hero-actions">
             <button className="lp-btn lp-btn-primary lp-btn-lg">
@@ -130,7 +130,7 @@ export function Hero() {
             >
               <Icon.Check width={11} height={11} />
             </span>
-            KTP terbaca
+            Dokumen terbaca
             <span className="lp-mono">conf 0,98</span>
           </div>
           <div className="lp-anno" style={{ bottom: 108, left: -44 }}>

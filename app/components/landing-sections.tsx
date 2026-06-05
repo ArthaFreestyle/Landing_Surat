@@ -8,7 +8,7 @@ import { PopupFrame } from "./popup-shell";
 import { ScreenMain, ScreenPreview, ScreenSuccess } from "./popup-screens";
 
 export function DocStrip() {
-  const docs = ["KTP", "NPWP", "Kartu Keluarga", "Ijazah", "Invoice", "Nota barang", "Struk kasir", "Catatan stok"];
+  const docs = ["Invoice", "Nota barang", "Struk kasir", "Catatan stok", "NPWP", "Kartu Keluarga", "Ijazah", "Transkrip nilai"];
   return (
     <section style={{ borderTop: `1px solid ${SURAT.border}`, borderBottom: `1px solid ${SURAT.border}`, background: SURAT.popupBg }}>
       <div className="lp-container" style={{ padding: "34px 32px", textAlign: "center" }}>
@@ -32,7 +32,7 @@ export function HowItWorks() {
     {
       n: "01", icon: <LIcon.Upload width={22} height={22} />,
       title: "Unggah dokumen",
-      body: "Tarik foto KTP, nota belanja, struk, atau PDF apa pun ke panel Surat. Mendukung JPG, PNG, HEIC, WEBP, dan PDF hingga 10 MB.",
+      body: "Tarik foto nota belanja, struk, ijazah, atau PDF apa pun ke panel Surat. Mendukung JPG, PNG, HEIC, WEBP, dan PDF hingga 10 MB.",
       shot: <ScreenMain />,
     },
     {
@@ -113,7 +113,7 @@ export function Privacy() {
             Data Anda tetap milik Anda.
           </h2>
           <p style={{ fontSize: 18, lineHeight: 1.55, color: SURAT.ink2, margin: "18px 0 0" }}>
-            Foto KTP, nota toko, atau struk kasir itu sensitif. Surat dirancang agar Anda
+            Foto nota toko, struk kasir, dan dokumen identitas itu sensitif. Surat dirancang agar Anda
             mendapat kecepatan otomatis tanpa menyerahkan kendali atas data pribadi maupun bisnis.
           </p>
           <div
