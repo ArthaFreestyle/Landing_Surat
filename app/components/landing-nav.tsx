@@ -23,10 +23,16 @@ export function LandingNav() {
           <a className="lp-link" href="#harga">Harga</a>
           <a className="lp-link" href="#faq">FAQ</a>
         </div>
-        <button className="lp-btn lp-btn-primary lp-nav-cta" style={{ padding: "11px 18px", fontSize: 14.5 }}>
+        <a
+          className="lp-btn lp-btn-primary lp-nav-cta"
+          href="https://chromewebstore.google.com/detail/surat/onhacfcgnfldpomdcomiakcpnlembphj?hl=en-US&utm_source=ext_sidebar"
+          target="_blank"
+          rel="noopener"
+          style={{ padding: "11px 18px", fontSize: 14.5, textDecoration: "none" }}
+        >
           <LIcon.Puzzle width={17} height={17} />
           <span className="lp-nav-cta-label">Tambahkan ke Chrome</span>
-        </button>
+        </a>
       </div>
     </nav>
   );

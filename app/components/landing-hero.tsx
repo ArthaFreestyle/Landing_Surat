@@ -55,10 +55,16 @@ export function Hero() {
             dokumen Word — tanpa ketik ulang.
           </p>
           <div className="lp-hero-actions">
-            <button className="lp-btn lp-btn-primary lp-btn-lg">
+            <a
+              className="lp-btn lp-btn-primary lp-btn-lg"
+              href="https://chromewebstore.google.com/detail/surat/onhacfcgnfldpomdcomiakcpnlembphj?hl=en-US&utm_source=ext_sidebar"
+              target="_blank"
+              rel="noopener"
+              style={{ textDecoration: "none" }}
+            >
               <LIcon.Puzzle width={19} height={19} />
               Tambahkan ke Chrome
-            </button>
+            </a>
             <a
               href="#cara-kerja"
               className="lp-link lp-hero-link"

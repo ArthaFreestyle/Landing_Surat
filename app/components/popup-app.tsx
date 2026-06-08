@@ -39,7 +39,7 @@ export function InteractivePopup({ initial = "login" }: { initial?: AppState }) 
 
       <div
         style={{
-          position: "absolute", bottom: 10, left: "50%", transform: "translateX(-50%)",
+          position: "absolute", bottom: 4, left: "50%", transform: "translateX(-50%)",
           display: "flex", gap: 6, padding: "5px 8px",
           background: "rgba(42,37,31,0.78)", borderRadius: 999,
           backdropFilter: "blur(6px)",

@@ -38,10 +38,16 @@ export function FinalCTA() {
               Pasang Surat, foto satu dokumen, dan biarkan form berikutnya — atau spreadsheet stok Anda — terisi sendiri.
             </p>
             <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", marginTop: 34 }}>
-              <button className="lp-btn lp-btn-dark lp-btn-lg">
+              <a
+                className="lp-btn lp-btn-dark lp-btn-lg"
+                href="https://chromewebstore.google.com/detail/surat/onhacfcgnfldpomdcomiakcpnlembphj?hl=en-US&utm_source=ext_sidebar"
+                target="_blank"
+                rel="noopener"
+                style={{ textDecoration: "none" }}
+              >
                 <LIcon.Puzzle width={19} height={19} />
                 Tambahkan ke Chrome — Gratis
-              </button>
+              </a>
             </div>
             <p style={{ fontSize: 13.5, color: "rgba(245,239,224,.5)", marginTop: 18 }}>
               Gratis 15 scan per bulan · Tanpa kartu kredit
@@ -91,6 +97,7 @@ export function Footer() {
           ))}
         </div>
         <div
+          className="lp-footer-bottom"
           style={{
             display: "flex", justifyContent: "space-between", alignItems: "center",
             flexWrap: "wrap", gap: 12,
