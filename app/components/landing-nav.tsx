@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Wordmark } from "./wordmark";
-import { LIcon } from "./landing-icons";
+import { Icon } from "./icons";
 
 export function LandingNav() {
   const [scrolled, setScrolled] = useState(false);
@@ -18,20 +18,19 @@ export function LandingNav() {
       <div className="lp-container lp-nav-inner">
         <Wordmark size={24} />
         <div className="lp-nav-links">
-          <a className="lp-link" href="#cara-kerja">Cara kerja</a>
+          <a className="lp-link" href="#produk">Produk</a>
+          <a className="lp-link" href="#autofill">Autofill</a>
           <a className="lp-link" href="#privasi">Privasi</a>
           <a className="lp-link" href="#harga">Harga</a>
           <a className="lp-link" href="#faq">FAQ</a>
         </div>
         <a
           className="lp-btn lp-btn-primary lp-nav-cta"
-          href="https://chromewebstore.google.com/detail/surat/onhacfcgnfldpomdcomiakcpnlembphj?hl=en-US&utm_source=ext_sidebar"
-          target="_blank"
-          rel="noopener"
+          href="#produk"
           style={{ padding: "11px 18px", fontSize: 14.5, textDecoration: "none" }}
         >
-          <LIcon.Puzzle width={17} height={17} />
-          <span className="lp-nav-cta-label">Tambahkan ke Chrome</span>
+          <Icon.Sparkle width={16} height={16} />
+          <span className="lp-nav-cta-label">Coba sekarang</span>
         </a>
       </div>
     </nav>

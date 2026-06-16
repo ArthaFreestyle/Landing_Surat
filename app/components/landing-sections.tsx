@@ -5,15 +5,15 @@ import { Icon } from "./icons";
 import { LIcon } from "./landing-icons";
 import { ScaledShot } from "./scaled-shot";
 import { PopupFrame } from "./popup-shell";
-import { ScreenMain, ScreenPreview, ScreenSuccess } from "./popup-screens";
+import { ScreenPreview } from "./popup-screens";
 
 export function DocStrip() {
-  const docs = ["Invoice", "Nota barang", "Struk kasir", "Catatan stok", "NPWP", "Kartu Keluarga", "Ijazah", "Transkrip nilai"];
+  const docs = ["CV lamaran kerja", "Surat pengajuan kelompok tani", "Pengantar kelurahan", "Undangan pernikahan", "Surat undangan resmi", "Proposal bantuan", "Surat keterangan usaha"];
   return (
     <section style={{ borderTop: `1px solid ${SURAT.border}`, borderBottom: `1px solid ${SURAT.border}`, background: SURAT.popupBg }}>
       <div className="lp-container" style={{ padding: "34px 32px", textAlign: "center" }}>
         <div style={{ fontSize: 12.5, fontWeight: 600, letterSpacing: "0.06em", textTransform: "uppercase", color: SURAT.ink3, marginBottom: 18 }}>
-          Dikenali otomatis
+          Yang bisa Anda buat
         </div>
         <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
           {docs.map((d) => (
@@ -28,58 +28,49 @@ export function DocStrip() {
 }
 
 export function HowItWorks() {
-  const steps = [
-    {
-      n: "01", icon: <LIcon.Upload width={22} height={22} />,
-      title: "Unggah dokumen",
-      body: "Tarik foto nota belanja, struk, ijazah, atau PDF apa pun ke panel Surat. Mendukung JPG, PNG, HEIC, WEBP, dan PDF hingga 10 MB.",
-      shot: <ScreenMain />,
-    },
-    {
-      n: "02", icon: <LIcon.Scan width={22} height={22} />,
-      title: "Surat membaca isinya",
-      body: "Field dari dokumen identitas — atau baris demi baris dari nota dan struk — dikenali dan dicocokkan dengan form atau kolom spreadsheet yang sedang Anda buka.",
-      shot: <ScreenPreview />,
-    },
-    {
-      n: "03", icon: <LIcon.Wand width={22} height={22} />,
-      title: "Form atau spreadsheet terisi",
-      body: "Tinjau hasilnya, lalu isi form dengan satu klik — atau tambahkan baris ke Google Sheets. Bisa juga unduh sebagai CSV/XLSX. Ada tombol undo dalam 10 detik.",
-      shot: <ScreenSuccess />,
-    },
+  const feats = [
+    "Isi form pemerintah, fintech, atau HR otomatis",
+    "Tambah baris ke Google Sheets dari foto nota",
+    "Tinjau tiap field sebelum dikirim — undo 10 detik",
   ];
 
   return (
-    <section id="cara-kerja" className="lp-section">
-      <div className="lp-container">
-        <div style={{ maxWidth: 640, marginBottom: 56 }}>
-          <div className="lp-eyebrow" style={{ marginBottom: 16 }}><span className="dot" />Cara kerja</div>
-          <h2
-            className="lp-serif"
-            style={{ fontSize: "clamp(32px, 4.4vw, 50px)", fontWeight: 500, lineHeight: 1.06, margin: 0, color: SURAT.ink }}
-          >
-            Tiga langkah dari dokumen ke data terisi.
+    <section
+      id="autofill"
+      className="lp-section"
+      style={{ background: SURAT.popupBg, borderTop: `1px solid ${SURAT.border}`, borderBottom: `1px solid ${SURAT.border}` }}
+    >
+      <div className="lp-container" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 56, alignItems: "center" }}>
+        <div style={{ maxWidth: 480 }}>
+          <div className="lp-eyebrow" style={{ marginBottom: 16 }}><span className="dot" />Bonus · Ekstensi Chrome</div>
+          <h2 className="lp-serif" style={{ fontSize: "clamp(28px, 3.8vw, 44px)", fontWeight: 500, lineHeight: 1.07, margin: 0, color: SURAT.ink }}>
+            Masih sering isi form online? Biar Surat yang mengetik.
           </h2>
-          <p style={{ fontSize: 18, lineHeight: 1.55, color: SURAT.ink2, margin: "18px 0 0" }}>
-            Tidak ada penyiapan, tidak ada salin-tempel. Surat bekerja di panel samping browser,
-            di sisi form atau spreadsheet yang sedang Anda isi.
+          <p style={{ fontSize: 17, lineHeight: 1.58, color: SURAT.ink2, margin: "16px 0 0" }}>
+            Selain membuat dokumen, Surat punya ekstensi Chrome gratis yang membaca foto
+            dokumen Anda lalu mengisi formulir online dan spreadsheet — tanpa ketik ulang.
           </p>
+          <ul style={{ listStyle: "none", padding: 0, margin: "22px 0 28px", display: "flex", flexDirection: "column", gap: 12 }}>
+            {feats.map((f, i) => (
+              <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: 11, fontSize: 15, color: SURAT.ink2 }}>
+                <Icon.Check width={18} height={18} style={{ color: SURAT.success, flexShrink: 0, marginTop: 2 }} />{f}
+              </li>
+            ))}
+          </ul>
+          <a
+            className="lp-btn lp-btn-secondary"
+            href="https://chromewebstore.google.com/detail/surat/onhacfcgnfldpomdcomiakcpnlembphj?hl=en-US&utm_source=ext_sidebar"
+            target="_blank"
+            rel="noopener"
+            style={{ textDecoration: "none" }}
+          >
+            <LIcon.Puzzle width={18} height={18} /> Tambahkan ekstensi ke Chrome
+          </a>
         </div>
-
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 28 }}>
-          {steps.map((s) => (
-            <div key={s.n} style={{ display: "flex", flexDirection: "column" }}>
-              <ScaledShot w={380} h={720} maxW={380} cropH={470} fade={true}>
-                <PopupFrame>{s.shot}</PopupFrame>
-              </ScaledShot>
-              <div style={{ display: "flex", alignItems: "center", gap: 14, marginTop: 26 }}>
-                <span className="lp-feature-ico">{s.icon}</span>
-                <span className="lp-mono" style={{ fontSize: 13, color: SURAT.ink3 }}>{s.n}</span>
-              </div>
-              <h3 className="lp-serif" style={{ fontSize: 23, fontWeight: 500, margin: "16px 0 0", color: SURAT.ink }}>{s.title}</h3>
-              <p style={{ fontSize: 15.5, lineHeight: 1.6, color: SURAT.ink2, margin: "8px 0 0" }}>{s.body}</p>
-            </div>
-          ))}
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <ScaledShot w={380} h={720} maxW={340} cropH={500} fade={true}>
+            <PopupFrame><ScreenPreview /></PopupFrame>
+          </ScaledShot>
         </div>
       </div>
     </section>

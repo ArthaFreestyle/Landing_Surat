@@ -1,7 +1,7 @@
 "use client";
 
 import { SURAT } from "@/app/lib/tokens";
-import { LIcon } from "./landing-icons";
+import { Icon } from "./icons";
 import { Wordmark } from "./wordmark";
 
 export function FinalCTA() {
@@ -32,25 +32,23 @@ export function FinalCTA() {
                 margin: 0, color: "#fff", maxWidth: 720, marginInline: "auto",
               }}
             >
-              Berhenti mengetik ulang<br />data yang itu-itu saja.
+              Dokumen penting,<br />beres tanpa drama.
             </h2>
             <p style={{ fontSize: "clamp(16px, 2vw, 19px)", lineHeight: 1.55, color: "rgba(245,239,224,.7)", margin: "20px auto 0", maxWidth: 540 }}>
-              Pasang Surat, foto satu dokumen, dan biarkan form berikutnya — atau spreadsheet stok Anda — terisi sendiri.
+              Buat CV atau surat resmi pertama Anda hari ini — gratis, langsung dari browser, tanpa instalasi.
             </p>
             <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", marginTop: 34 }}>
               <a
                 className="lp-btn lp-btn-dark lp-btn-lg"
-                href="https://chromewebstore.google.com/detail/surat/onhacfcgnfldpomdcomiakcpnlembphj?hl=en-US&utm_source=ext_sidebar"
-                target="_blank"
-                rel="noopener"
+                href="#produk"
                 style={{ textDecoration: "none" }}
               >
-                <LIcon.Puzzle width={19} height={19} />
-                Tambahkan ke Chrome — Gratis
+                <Icon.Sparkle width={19} height={19} />
+                Coba sekarang — Gratis
               </a>
             </div>
             <p style={{ fontSize: 13.5, color: "rgba(245,239,224,.5)", marginTop: 18 }}>
-              Gratis 15 scan per bulan · Tanpa kartu kredit
+              Gratis untuk mulai · Tanpa kartu kredit
             </p>
           </div>
         </div>
@@ -61,7 +59,7 @@ export function FinalCTA() {
 
 export function Footer() {
   const cols: { h: string; items: { label: string; href?: string }[] }[] = [
-    { h: "Produk",  items: [{ label: "Cara kerja" }, { label: "Harga" }, { label: "Tipe dokumen" }, { label: "Blog" }] },
+    { h: "Produk",  items: [{ label: "Surat CV", href: "#produk" }, { label: "Surat Dokumen", href: "#produk" }, { label: "Surat Undangan", href: "#produk" }, { label: "Surat Autofill", href: "#autofill" }] },
     { h: "Company", items: [{ label: "Team" }, { label: "Instagram" }] },
     { h: "Legal",   items: [{ label: "Terms", href: "/privasi" }, { label: "Privacy", href: "/privasi" }] },
   ];
