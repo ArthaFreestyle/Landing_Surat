@@ -167,57 +167,30 @@ export function SuratPaper({ type = "kelompok-tani", w = 300, cls = "lp-prod-pap
   );
 }
 
-// ─── Output: digital wedding invitation on a phone ────────────────────
-export function InvitePhone({ w = 210 }: { w?: number }) {
+// ─── Output: real digital invitation embedded in a phone ──────────────
+// Loads the actual wedding website in a scaled iframe so the mockup is real.
+export function InvitePhone({ w = 210, src = "/wedding-website.html", logicalW = 390 }: { w?: number; src?: string; logicalW?: number }) {
   const sw = w;
   const sh = Math.round(w * 1.96);
   const bezel = Math.round(w * 0.03);
-  const photoH = Math.round(w * 0.72);
-  const mono = w * 0.044;
+  const scale = sw / logicalW;
   return (
     <div style={{
       width: sw + bezel * 2, height: sh + bezel * 2, padding: bezel,
       background: "#211d18", borderRadius: w * 0.13,
       boxShadow: "0 2px 6px rgba(60,50,40,.1), 0 40px 70px -24px rgba(60,50,40,.55)",
     }}>
-      <div style={{ width: sw, height: sh, borderRadius: w * 0.1, overflow: "hidden", background: SURAT.popupBg, position: "relative", display: "flex", flexDirection: "column" }}>
-        {/* Photo placeholder + monogram */}
-        <div style={{
-          height: photoH, position: "relative", flexShrink: 0,
-          background: "repeating-linear-gradient(135deg, #efe7d8 0 8px, #e8dfcd 8px 16px)",
-          borderBottom: `1px solid ${SURAT.border}`,
-          display: "flex", alignItems: "center", justifyContent: "center",
-        }}>
-          <div style={{
-            width: w * 0.3, height: w * 0.3, borderRadius: 999,
-            border: `1.5px solid var(--pa, ${SURAT.accent})`, color: `var(--pa, ${SURAT.accent})`,
-            display: "flex", alignItems: "center", justifyContent: "center",
-            fontFamily: SURAT.serif, fontSize: w * 0.085, background: "rgba(250,249,245,0.7)",
-          }}>R&amp;A</div>
-          <span style={{ position: "absolute", bottom: 7, left: 0, right: 0, textAlign: "center", fontFamily: SURAT.mono, fontSize: w * 0.03, color: SURAT.ink3 }}>foto pasangan</span>
-        </div>
-
-        {/* Invitation body */}
-        <div style={{ flex: 1, padding: `${w * 0.07}px ${w * 0.08}px`, textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center" }}>
-          <div style={{ fontFamily: SURAT.sans, fontSize: mono, letterSpacing: "0.22em", textTransform: "uppercase", color: SURAT.ink3 }}>The Wedding Of</div>
-          <div style={{ fontFamily: SURAT.serif, fontSize: w * 0.13, fontWeight: 500, color: SURAT.ink, lineHeight: 1.04, margin: `${w * 0.03}px 0` }}>
-            Rangga<br /><span style={{ fontStyle: "italic", color: `var(--pa, ${SURAT.accent})`, fontSize: w * 0.09 }}>&amp;</span><br />Ayu
-          </div>
-          {/* diamond divider */}
-          <div style={{ display: "flex", alignItems: "center", gap: 8, width: "70%", margin: `${w * 0.01}px 0 ${w * 0.04}px` }}>
-            <div style={{ flex: 1, height: 1, background: SURAT.borderStrong }} />
-            <span style={{ width: w * 0.028, height: w * 0.028, background: `var(--pa, ${SURAT.accent})`, transform: "rotate(45deg)" }} />
-            <div style={{ flex: 1, height: 1, background: SURAT.borderStrong }} />
-          </div>
-          <div style={{ fontFamily: SURAT.serif, fontSize: w * 0.058, color: SURAT.ink }}>Sabtu, 12 Desember 2026</div>
-          <div style={{ fontFamily: SURAT.sans, fontSize: w * 0.044, color: SURAT.ink2, marginTop: w * 0.012 }}>Graha Saba · Bandung</div>
-
-          <div style={{ flex: 1 }} />
-          <div style={{ width: "100%", background: `var(--pa, ${SURAT.accent})`, color: "#fff", fontFamily: SURAT.sans, fontSize: w * 0.046, fontWeight: 500, padding: `${w * 0.045}px 0`, borderRadius: w * 0.04, boxShadow: "inset 0 1px 0 rgba(255,255,255,.18)" }}>
-            Buka Undangan
-          </div>
-          <div style={{ fontFamily: SURAT.mono, fontSize: w * 0.035, color: SURAT.ink3, marginTop: w * 0.035 }}>RSVP sebelum 1 Des</div>
-        </div>
+      <div style={{ width: sw, height: sh, borderRadius: w * 0.1, overflow: "hidden", background: SURAT.popupBg, position: "relative" }}>
+        <iframe
+          src={src}
+          title="Undangan digital Surat"
+          scrolling="no"
+          style={{
+            width: logicalW, height: Math.round(sh / scale), border: "none",
+            transform: `scale(${scale})`, transformOrigin: "top left",
+            pointerEvents: "none",
+          }}
+        />
       </div>
     </div>
   );

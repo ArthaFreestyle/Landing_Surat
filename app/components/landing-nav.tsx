@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { Wordmark } from "./wordmark";
-import { Icon } from "./icons";
 
 export function LandingNav() {
   const [scrolled, setScrolled] = useState(false);
@@ -29,7 +28,6 @@ export function LandingNav() {
           href="#produk"
           style={{ padding: "11px 18px", fontSize: 14.5, textDecoration: "none" }}
         >
-          <Icon.Sparkle width={16} height={16} />
           <span className="lp-nav-cta-label">Coba sekarang</span>
         </a>
       </div>

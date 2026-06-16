@@ -28,7 +28,6 @@ export function Hero() {
           </p>
           <div className="lp-hero-actions">
             <a className="lp-btn lp-btn-primary lp-btn-lg" href="#produk" style={{ textDecoration: "none" }}>
-              <Icon.Sparkle width={19} height={19} />
               Coba sekarang
             </a>
             <a

@@ -1,7 +1,6 @@
 "use client";
 
 import { SURAT } from "@/app/lib/tokens";
-import { Icon } from "./icons";
 import { Wordmark } from "./wordmark";
 
 export function FinalCTA() {
@@ -43,7 +42,6 @@ export function FinalCTA() {
                 href="#produk"
                 style={{ textDecoration: "none" }}
               >
-                <Icon.Sparkle width={19} height={19} />
                 Coba sekarang — Gratis
               </a>
             </div>
