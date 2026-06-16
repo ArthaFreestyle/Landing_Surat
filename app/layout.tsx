@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Source_Serif_4, JetBrains_Mono } from "next/font/google";
+import { Inter, Source_Serif_4, JetBrains_Mono, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -23,6 +23,14 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
+const cormorantGaramond = Cormorant_Garamond({
+  subsets: ["latin"],
+  variable: "--font-cormorant",
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "Surat — Isi formulir & spreadsheet tanpa ketik ulang",
   description:
@@ -38,7 +46,7 @@ export default function RootLayout({
   return (
     <html
       lang="id"
-      className={`${inter.variable} ${sourceSerif4.variable} ${jetbrainsMono.variable}`}
+      className={`${inter.variable} ${sourceSerif4.variable} ${jetbrainsMono.variable} ${cormorantGaramond.variable}`}
     >
       <body>{children}</body>
     </html>

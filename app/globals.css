@@ -625,3 +625,96 @@ body {
   .lp-pp-content h2 { font-size: 24px; }
   .lp-pp-content p, .lp-pp-content li { font-size: 15.5px; }
 }
+
+/* ── Undangan catalog (.cat-* / .mag-*) ───────────────────────────── */
+.cat, .cat * { box-sizing: border-box; }
+.cat {
+  font-family: var(--font-inter), "Helvetica Neue", Helvetica, system-ui, sans-serif;
+  color: #2a251f; background: #f0eee9;
+  letter-spacing: -0.006em; -webkit-font-smoothing: antialiased; line-height: 1.5;
+  min-height: 100vh;
+}
+.cat-serif { font-family: var(--font-source-serif-4), "Source Serif Pro", Iowan, "Times New Roman", serif; letter-spacing: -0.015em; }
+.cat-mono  { font-family: var(--font-jetbrains-mono), "SF Mono", ui-monospace, Menlo, monospace; }
+.cat ::selection { background: #f4e6dd; color: #7a3618; }
+.cat-container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 28px; }
+
+.mag-serif { font-family: var(--font-cormorant), "Source Serif 4", Georgia, serif; }
+
+/* Nav */
+.cat-nav {
+  position: sticky; top: 0; z-index: 40;
+  background: rgba(240,238,233,0.86); backdrop-filter: saturate(140%) blur(12px);
+  border-bottom: 1px solid #e8e2d6;
+}
+.cat-nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.cat-link { color: #6b6358; text-decoration: none; font-size: 14px; transition: color .12s; }
+.cat-link:hover { color: #2a251f; }
+
+/* Buttons */
+.cat-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 11px 16px; border-radius: 11px; border: none; cursor: pointer;
+  font-family: inherit; font-size: 14px; font-weight: 500; letter-spacing: -0.005em;
+  transition: transform .12s, background .12s, box-shadow .12s, color .12s;
+  white-space: nowrap;
+}
+.cat-btn-primary { color: #fff; box-shadow: inset 0 1px 0 rgba(255,255,255,.18); }
+.cat-btn-primary:hover { transform: translateY(-1px); filter: brightness(1.05); }
+.cat-btn-secondary { background: #ffffff; color: #2a251f; box-shadow: inset 0 0 0 1px #d6cebd; }
+.cat-btn-secondary:hover { background: #f5f2ea; }
+.cat-btn-ghost { background: transparent; color: #6b6358; }
+.cat-btn-ghost:hover { background: #f5f2ea; color: #2a251f; }
+
+/* Filter chips */
+.cat-chip {
+  padding: 9px 16px; border-radius: 999px; border: 1px solid #e8e2d6;
+  background: #ffffff; color: #6b6358; cursor: pointer;
+  font-family: inherit; font-size: 13.5px; font-weight: 500; transition: all .14s;
+}
+.cat-chip:hover { border-color: #d6cebd; color: #2a251f; }
+.cat-chip.active { background: #2a251f; color: #f5efe0; border-color: #2a251f; }
+
+/* Grid + card */
+.cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+.cat-card {
+  background: #ffffff; border: 1px solid #e8e2d6; border-radius: 18px;
+  overflow: hidden; display: flex; flex-direction: column;
+}
+.cat-preview { position: relative; height: 308px; overflow: hidden; }
+.cat-badge {
+  position: absolute; top: 12px; left: 12px; z-index: 2;
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 11px; font-weight: 600; letter-spacing: .03em;
+  background: rgba(250,249,245,.92); color: #7a3618;
+  padding: 5px 10px; border-radius: 999px; box-shadow: 0 2px 8px rgba(60,50,40,.14);
+}
+.cat-info { padding: 18px 18px 18px; display: flex; flex-direction: column; flex: 1; }
+
+/* Modal */
+.cat-overlay {
+  position: fixed; inset: 0; z-index: 100; background: rgba(33,29,24,.55);
+  backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center;
+  padding: 24px; animation: cat-fade .2s ease;
+}
+@keyframes cat-fade { from { opacity: 0 } to { opacity: 1 } }
+@keyframes cat-pop { from { opacity: 0; transform: translateY(10px) scale(.98) } to { opacity: 1; transform: none } }
+.cat-modal { animation: cat-pop .22s ease; }
+.cat-scroll { overflow-y: auto; }
+.cat-scroll::-webkit-scrollbar { width: 8px; }
+.cat-scroll::-webkit-scrollbar-thumb { background: rgba(0,0,0,.16); border-radius: 8px; }
+
+/* Phone bezel for demo */
+.cat-phone { background: #211d18; border-radius: 38px; padding: 9px; box-shadow: 0 2px 6px rgba(60,50,40,.1), 0 50px 90px -30px rgba(0,0,0,.6); }
+.cat-phone-screen { width: 320px; height: 620px; border-radius: 30px; overflow: hidden; position: relative; }
+
+@media (max-width: 640px) {
+  .cat-container { padding: 0 16px; }
+  .cat-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+  .cat-preview { height: 230px; }
+  .cat-phone-screen { width: 280px; height: 560px; }
+  .cat-nav-links { display: none; }
+}
+@media (max-width: 380px) {
+  .cat-grid { grid-template-columns: 1fr; }
+}

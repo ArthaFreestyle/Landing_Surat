@@ -180,7 +180,8 @@ export function ProductSuite({ docType = "kelompok-tani", accent = SURAT.accent 
             title="Undangan pernikahan digital, sebar lewat link."
             desc="Isi nama mempelai, tanggal, dan lokasi — Surat menyusun undangan digital yang elegan. Bagikan lewat WhatsApp, lengkap dengan peta lokasi dan RSVP tamu."
             meta="Output link · bisa dibagikan"
-            ctaLabel="Coba sekarang"
+            ctaHref="/katalog"
+            ctaLabel="Lihat katalog desain"
             steps={[
               { t: "Isi detail acara", d: "Nama mempelai, tanggal, lokasi akad & resepsi." },
               { t: "Pilih tema & foto", d: "Beberapa tema elegan, tambah foto prewedding." },

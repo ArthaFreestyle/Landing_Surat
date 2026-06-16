@@ -57,7 +57,7 @@ export function FinalCTA() {
 
 export function Footer() {
   const cols: { h: string; items: { label: string; href?: string }[] }[] = [
-    { h: "Produk",  items: [{ label: "Surat CV", href: "#produk" }, { label: "Surat Dokumen", href: "#produk" }, { label: "Surat Undangan", href: "#produk" }, { label: "Surat Autofill", href: "#autofill" }] },
+    { h: "Produk",  items: [{ label: "Surat CV", href: "#produk" }, { label: "Surat Dokumen", href: "#produk" }, { label: "Surat Undangan", href: "/katalog" }, { label: "Surat Autofill", href: "#autofill" }] },
     { h: "Company", items: [{ label: "Team" }, { label: "Instagram" }] },
     { h: "Legal",   items: [{ label: "Terms", href: "/privasi" }, { label: "Privacy", href: "/privasi" }] },
   ];
