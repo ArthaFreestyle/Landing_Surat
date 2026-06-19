@@ -163,6 +163,37 @@
   .hero .photo::after { color: rgba(253,251,247,0.45); }
   .hero .photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 38%; }
   .hero .photo.has-img::after { display: none; }
+  /* Crossfading hero slideshow + continuous breathing zoom */
+  .hero .photo.hero-slideshow {
+    animation: heroBreathe 18s ease-in-out infinite alternate;
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+  @keyframes heroBreathe {
+    from { transform: scale(1.04) translateZ(0); }
+    to   { transform: scale(1.13) translateZ(0); }
+  }
+  .hero .photo img {
+    position: absolute; inset: 0;
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
+    will-change: opacity;
+    backface-visibility: hidden;
+  }
+  .hero .photo img.is-active {
+    opacity: 1;
+  }
+  /* Floating particle layer */
+  .hero-particles {
+    position: absolute; inset: 0;
+    z-index: 1;
+    pointer-events: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero .photo.hero-slideshow { animation: none; transform: none; }
+    .hero .photo img { transition: none; }
+    .hero-particles { display: none; }
+  }
   .hero-scrim {
     position: absolute; inset: 0;
     background:
@@ -327,6 +358,10 @@
   .event .hairline { width: 46px; height: 1px; background: var(--gold); margin: 1.5rem auto; }
   .event .line { font-size: 0.86rem; color: var(--charcoal-soft); margin: 0.25rem 0; letter-spacing: 0.02em; }
   .event .venue { font-size: 0.95rem; color: var(--charcoal); letter-spacing: 0.05em; margin-bottom: 0.2rem; }
+  .event .map-btn { display: inline-flex; align-items: center; gap: 0.5em; margin-top: 1.4rem; padding: 0.7rem 1.6rem; border: 1px solid var(--gold); border-radius: 999px; font-size: 0.7rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); text-decoration: none; transition: background 0.4s ease, color 0.4s ease; }
+  .event .map-btn::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--gold); transition: background 0.4s ease; }
+  .event .map-btn:hover { background: var(--gold); color: #fff; }
+  .event .map-btn:hover::before { background: #fff; }
   @media (max-width: 760px) {
     .details-grid { grid-template-columns: 1fr; }
     .v-divider { width: 64px; height: 1px; background: linear-gradient(90deg, transparent, rgba(212,175,55,0.55), transparent); margin: 0 auto; }
@@ -427,7 +462,11 @@
     padding: 1.3rem 1.6rem;
     box-shadow: 0 14px 40px -38px rgba(0,0,0,0.6);
   }
-  .wish .wish-name { font-family: var(--serif); font-size: 1.3rem; color: var(--charcoal); line-height: 1.2; }
+  .wish .wish-name { font-family: var(--serif); font-size: 1.3rem; color: var(--charcoal); line-height: 1.2; display: flex; align-items: center; flex-wrap: wrap; gap: 0.6rem; }
+  .wish .wish-rsvp { font-family: var(--sans); font-size: 0.54rem; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.4em 0.85em; border-radius: 999px; line-height: 1; white-space: nowrap; }
+  .wish .rsvp-yes { background: rgba(212,175,55,0.16); color: var(--gold); }
+  .wish .rsvp-no { background: rgba(0,0,0,0.06); color: var(--charcoal-soft); }
+  .wish .rsvp-maybe { background: rgba(0,0,0,0.04); color: var(--charcoal-soft); }
   .wish .wish-meta { font-size: 0.58rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); margin: 0.25rem 0 0.7rem; }
   .wish .wish-msg { font-size: 0.9rem; color: var(--charcoal-soft); line-height: 1.7; }
   .wishes-count { text-align: center; font-size: 0.66rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--charcoal-soft); margin-bottom: 1.6rem; }
@@ -475,10 +514,14 @@
 
 <!-- ============ HERO ============ -->
 <header class="hero" data-screen-label="Hero">
-  <div class="photo has-img" data-label="foto pre-wedding layar penuh">
-    <img src="uploads/pexels-marvin-malmis-ponce-13470064-scaled-1.webp" alt="Anindya &amp; Raditya" />
+  <div class="photo has-img hero-slideshow" data-label="foto pre-wedding layar penuh">
+    <img class="is-active" src="uploads/pexels-marvin-malmis-ponce-13470064-scaled-1.webp" alt="Anindya &amp; Raditya" />
+    <img src="uploads/pexels-marvin-malmis-ponce-13470059-scaled-1.webp" alt="Anindya &amp; Raditya" />
+    <img src="uploads/pexels-marvin-malmis-ponce-13470065-scaled-1.webp" alt="Anindya &amp; Raditya" />
+    <img src="uploads/pexels-marvin-malmis-ponce-13470063-scaled-1-2.webp" alt="Anindya &amp; Raditya" />
   </div>
   <div class="hero-scrim"></div>
+  <canvas class="hero-particles" id="heroParticles"></canvas>
   <div class="hero-inner">
     <p class="hero-eyebrow hero-anim d1">Dengan memohon rahmat dan rido Tuhan Yang Maha Esa</p>
     <h1 class="hero-title">
@@ -531,7 +574,7 @@
       </div>
       <div class="story-text reveal">
         <span class="eyebrow">QS. Ar-Rum : 21</span>
-        <p class="story-quote">“Dan di antara tanda-tanda kekuasaan-Nya, Dia menciptakan untukmu pasangan dari jenismu sendiri, agar kamu cenderung dan merasa <span class="gold">tenteram</span> kepadanya, dan dijadikan-Nya di antaramu rasa kasih dan sayang.”</p>
+        <p class="story-quote">"Dan di antara tanda-tanda kekuasaan-Nya, Dia menciptakan untukmu pasangan dari jenismu sendiri, agar kamu cenderung dan merasa <span class="gold">tenteram</span> kepadanya, dan dijadikan-Nya di antaramu rasa kasih dan sayang."</p>
         <p class="story-body">
           Dengan memohon rahmat dan rido Allah Subhanahu wa Ta'ala, kami bermaksud menyelenggarakan pernikahan kami.
           Merupakan suatu kebahagiaan dan kehormatan bagi kami sekeluarga apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu.
@@ -563,23 +606,23 @@
     </div>
     <div class="details-grid reveal">
       <div class="event">
-        <p class="kicker">Akad Nikah</p>
-        <h3>Ijab &amp; Kabul</h3>
+        <h3>Akad Nikah</h3>
         <p class="when">Sabtu, 12 September 2026</p>
         <div class="hairline"></div>
         <p class="line">Pukul 16.00 WITA</p>
         <p class="venue">Pura Taman Saraswati</p>
         <p class="line">Jl. Kajeng, Ubud, Bali</p>
+        <a class="map-btn" href="https://www.google.com/maps/dir/?api=1&amp;destination=Pura+Taman+Saraswati+Ubud+Bali" target="_blank" rel="noopener">Petunjuk Arah</a>
       </div>
       <div class="v-divider"></div>
       <div class="event">
-        <p class="kicker">Resepsi</p>
-        <h3>Jamuan &amp; Syukuran</h3>
+        <h3>Resepsi</h3>
         <p class="when">Sabtu, 12 September 2026</p>
         <div class="hairline"></div>
         <p class="line">Pukul 19.00 WITA</p>
         <p class="venue">The Garden Pavilion</p>
         <p class="line">Four Seasons, Sayan, Ubud</p>
+        <a class="map-btn" href="https://www.google.com/maps/dir/?api=1&amp;destination=Four+Seasons+Resort+Bali+at+Sayan+Ubud" target="_blank" rel="noopener">Petunjuk Arah</a>
       </div>
     </div>
     <div class="countdown reveal" id="countdown">
@@ -622,7 +665,7 @@
     <div class="sec-head reveal">
       <span class="eyebrow">Ucapan &amp; Doa</span>
       <h2>Kirim Ucapan</h2>
-      <p class="sub">Untaian doa dan ucapan dari Bapak/Ibu/Saudara/i akan menjadi hadiah terindah bagi kami berdua.</p>
+      <p class="sub">Untaian doa dan ucapan dari Bapak/Ibu/Saudara/i akan menjadi hadiah terindah bagi kami berdua. Mohon konfirmasi kehadiran melalui formulir di bawah ini.</p>
     </div>
     <div class="wishes-card reveal">
       <form id="wishForm">
@@ -631,10 +674,18 @@
           <input type="text" id="wname" name="wname" required />
         </div>
         <div class="field">
+          <label for="wattend">Konfirmasi Kehadiran</label>
+          <select id="wattend" name="wattend" required>
+            <option value="" disabled selected>Pilih salah satu</option>
+            <option value="Hadir">Hadir</option>
+            <option value="Tidak Hadir">Tidak Hadir</option>
+          </select>
+        </div>
+        <div class="field">
           <label for="wmsg">Ucapan &amp; Doa</label>
           <textarea id="wmsg" name="wmsg" required placeholder="Tuliskan ucapan untuk mempelai…"></textarea>
         </div>
-        <button type="submit" class="btn">Kirim Ucapan</button>
+        <button type="submit" class="btn">Kirim Ucapan &amp; RSVP</button>
       </form>
     </div>
     <div class="wishes-list" id="wishesList"></div>
@@ -643,7 +694,7 @@
 
 <!-- ============ FOOTER ============ -->
 <footer data-screen-label="Footer">
-  <p class="foot-quote">“Atas kehadiran dan doa restu Bapak/Ibu/Saudara/i, kami sekeluarga menghaturkan terima kasih.”</p>
+  <p class="foot-quote">"Atas kehadiran dan doa restu Bapak/Ibu/Saudara/i, kami sekeluarga menghaturkan terima kasih."</p>
   <div class="monofoot">Anindya <span class="amp">&amp;</span> Raditya</div>
   <p class="foot-date">12 · 09 · 2026 — Ubud, Bali</p>
   <p class="hashtag">#AnindyaRaditya</p>
@@ -652,6 +703,74 @@
 </footer>
 
 <script>
+  // ---- Hero crossfade slideshow ----
+  (function heroSlideshow() {
+    const slides = document.querySelectorAll('.hero-slideshow img');
+    if (slides.length < 2) return;
+    slides.forEach(img => { if (img.decode) img.decode().catch(() => {}); });
+    let i = 0;
+    setInterval(() => {
+      slides[i].classList.remove('is-active');
+      i = (i + 1) % slides.length;
+      slides[i].classList.add('is-active');
+    }, 5000);
+  })();
+
+  // ---- Hero floating particles ----
+  (function heroParticles() {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const canvas = document.getElementById('heroParticles');
+    if (!canvas || reduce) return;
+    const ctx = canvas.getContext('2d');
+    const hero = canvas.parentElement;
+    let w = 0, h = 0, particles = [];
+
+    function resize() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = hero.clientWidth; h = hero.clientHeight;
+      canvas.width = w * dpr; canvas.height = h * dpr;
+      canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const count = Math.round(Math.min(70, Math.max(34, w / 22)));
+      particles = Array.from({ length: count }, makeParticle);
+    }
+    function makeParticle() {
+      const r = Math.random() * 2.2 + 0.6;
+      return {
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r,
+        vy: -(Math.random() * 0.25 + 0.08) - r * 0.04,
+        vx: (Math.random() - 0.5) * 0.25,
+        a: Math.random() * 0.5 + 0.15,
+        tw: Math.random() * Math.PI * 2,
+        tws: Math.random() * 0.02 + 0.005
+      };
+    }
+    function tick() {
+      ctx.clearRect(0, 0, w, h);
+      for (const p of particles) {
+        p.y += p.vy;
+        p.x += p.vx + Math.sin(p.tw) * 0.15;
+        p.tw += p.tws;
+        if (p.y < -6) { p.y = h + 6; p.x = Math.random() * w; }
+        if (p.x < -6) p.x = w + 6;
+        if (p.x > w + 6) p.x = -6;
+        const alpha = p.a * (0.6 + 0.4 * Math.sin(p.tw));
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(245, 232, 205,' + alpha + ')';
+        ctx.shadowBlur = 6;
+        ctx.shadowColor = 'rgba(212,175,55,0.4)';
+        ctx.fill();
+      }
+      requestAnimationFrame(tick);
+    }
+    resize();
+    window.addEventListener('resize', resize, { passive: true });
+    requestAnimationFrame(tick);
+  })();
+
   // ---- Nav scroll state ----
   const nav = document.getElementById('nav');
   const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > window.innerHeight * 0.6);
@@ -691,7 +810,7 @@
     for (const ch of text) {
       const s = document.createElement('span');
       s.className = 'char';
-      s.textContent = ch === ' ' ? '\u00A0' : ch;
+      s.textContent = ch === ' ' ? ' ' : ch;
       frag.appendChild(s);
     }
     el.appendChild(frag);
@@ -812,8 +931,9 @@
     }
     let html = '<p class="wishes-count">' + wishes.length + ' Ucapan</p>';
     wishes.forEach(w => {
+      const att = w.attend ? '<span class="wish-rsvp rsvp-' + (w.attend === 'Hadir' ? 'yes' : 'no') + '">' + escapeHtml(w.attend) + '</span>' : '';
       html += '<div class="wish">' +
-        '<div class="wish-name">' + escapeHtml(w.name) + '</div>' +
+        '<div class="wish-name">' + escapeHtml(w.name) + att + '</div>' +
         '<div class="wish-meta">' + timeAgo(w.ts) + '</div>' +
         '<div class="wish-msg">' + escapeHtml(w.msg) + '</div>' +
       '</div>';
@@ -824,8 +944,8 @@
   // Seed a couple of sample wishes on first visit so the section isn't empty
   if (loadWishes().length === 0) {
     saveWishes([
-      { name: 'Keluarga Besar Pranoto', msg: 'Selamat menempuh hidup baru. Semoga menjadi keluarga yang sakinah, mawaddah, warahmah, serta dilimpahi keberkahan. Aamiin.', ts: Date.now() - 7200000 },
-      { name: 'Dinda & Reza', msg: 'Turut berbahagia atas pernikahan kalian berdua. Semoga langgeng sampai kakek-nenek ya. Sampai jumpa di Ubud!', ts: Date.now() - 3600000 },
+      { name: 'Keluarga Besar Pranoto', msg: 'Selamat menempuh hidup baru. Semoga menjadi keluarga yang sakinah, mawaddah, warahmah, serta dilimpahi keberkahan. Aamiin.', attend: 'Hadir', ts: Date.now() - 7200000 },
+      { name: 'Dinda & Reza', msg: 'Turut berbahagia atas pernikahan kalian berdua. Semoga langgeng sampai kakek-nenek ya. Sampai jumpa di Ubud!', attend: 'Hadir', ts: Date.now() - 3600000 },
     ]);
   }
   renderWishes();
@@ -834,9 +954,10 @@
     e.preventDefault();
     const name = document.getElementById('wname').value.trim();
     const msg = document.getElementById('wmsg').value.trim();
-    if (!name || !msg) return;
+    const attend = document.getElementById('wattend').value;
+    if (!name || !msg || !attend) return;
     const wishes = loadWishes();
-    wishes.unshift({ name, msg, ts: Date.now() });
+    wishes.unshift({ name, msg, attend, ts: Date.now() });
     saveWishes(wishes);
     renderWishes();
     wishForm.reset();

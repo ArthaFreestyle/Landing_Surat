@@ -7,7 +7,6 @@ import { Icon } from "./icons";
 import { CatIcon } from "./catalog-icons";
 import { Wordmark } from "./wordmark";
 import { MiniInvite } from "./catalog-invite";
-import { FullInvite } from "./catalog-full";
 import { INVITE_THEMES, INVITE_CATS, INVITE_PACKAGES, rupiah, type Theme } from "./catalog-data";
 
 function field(): CSSProperties {
@@ -99,35 +98,9 @@ function OrderModal({ theme, onClose }: { theme: Theme; onClose: () => void }) {
   );
 }
 
-// ─── Demo modal ───────────────────────────────────────────────────────
-function DemoModal({ theme, onClose, onOrder }: { theme: Theme; onClose: () => void; onOrder: (t: Theme) => void }) {
-  return (
-    <div className="cat-overlay" onClick={onClose}>
-      <button className="cat-btn cat-btn-secondary" onClick={onClose} style={{ position: "fixed", top: 20, right: 20, width: 42, height: 42, padding: 0, borderRadius: 12 }}>
-        <Icon.X width={20} height={20} />
-      </button>
-      <div onClick={(e) => e.stopPropagation()} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16 }}>
-        <div className="cat-phone">
-          <div className="cat-phone-screen cat-scroll">
-            <FullInvite theme={theme} />
-          </div>
-        </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 14, background: SURAT.card, borderRadius: 999, padding: "8px 8px 8px 20px", boxShadow: "0 16px 40px -16px rgba(0,0,0,.5)" }}>
-          <div>
-            <div className="cat-serif" style={{ fontSize: 16, fontWeight: 500, color: SURAT.ink, lineHeight: 1.1 }}>{theme.name}</div>
-            <div style={{ fontSize: 12, color: SURAT.ink3 }}>mulai {rupiah(theme.price)}</div>
-          </div>
-          <button className="cat-btn cat-btn-primary" onClick={() => onOrder(theme)} style={{ background: SURAT.accent, padding: "12px 20px" }}>
-            <CatIcon.Cart width={16} height={16} /> Pesan desain ini
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 // ─── Card ─────────────────────────────────────────────────────────────
-function DesignCard({ theme, onDemo, onOrder }: { theme: Theme; onDemo: (t: Theme) => void; onOrder: (t: Theme) => void }) {
+function DesignCard({ theme, onOrder }: { theme: Theme; onOrder: (t: Theme) => void }) {
   return (
     <div className="cat-card">
       <div className="cat-preview">
@@ -142,10 +115,10 @@ function DesignCard({ theme, onDemo, onOrder }: { theme: Theme; onDemo: (t: Them
           <span className="cat-serif" style={{ fontSize: 17, fontWeight: 500, color: SURAT.ink }}>{rupiah(theme.price)}</span>
         </div>
         <div style={{ fontSize: 12.5, color: SURAT.ink3, marginTop: 3 }}>{theme.cat} · undangan digital</div>
-        <div style={{ display: "flex", gap: 8, marginTop: "auto", paddingTop: 16 }}>
-          <button className="cat-btn cat-btn-secondary" style={{ flex: 1 }} onClick={() => onDemo(theme)}>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: "auto", paddingTop: 16 }}>
+          <a className="cat-btn cat-btn-secondary" style={{ flex: 1, textDecoration: "none" }} href={theme.demoUrl || "#"} target="_blank" rel="noopener noreferrer">
             <CatIcon.Eye width={15} height={15} /> Lihat demo
-          </button>
+          </a>
           <button className="cat-btn cat-btn-primary" style={{ flex: 1, background: SURAT.accent }} onClick={() => onOrder(theme)}>
             <CatIcon.Cart width={15} height={15} /> Pesan
           </button>
@@ -158,14 +131,12 @@ function DesignCard({ theme, onDemo, onOrder }: { theme: Theme; onDemo: (t: Them
 // ─── Page ─────────────────────────────────────────────────────────────
 export function Catalog() {
   const [cat, setCat] = useState("Semua");
-  const [demo, setDemo] = useState<Theme | null>(null);
   const [order, setOrder] = useState<Theme | null>(null);
 
   useEffect(() => {
-    const lock = demo || order;
-    document.body.style.overflow = lock ? "hidden" : "";
+    document.body.style.overflow = order ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
-  }, [demo, order]);
+  }, [order]);
 
   const list = cat === "Semua" ? INVITE_THEMES : INVITE_THEMES.filter((t) => t.cat === cat);
 
@@ -211,7 +182,7 @@ export function Catalog() {
       <div className="cat-container" style={{ paddingBottom: 80 }}>
         <div className="cat-grid">
           {list.map((t) => (
-            <DesignCard key={t.id} theme={t} onDemo={setDemo} onOrder={setOrder} />
+            <DesignCard key={t.id} theme={t} onOrder={setOrder} />
           ))}
         </div>
       </div>
@@ -224,7 +195,6 @@ export function Catalog() {
         </div>
       </footer>
 
-      {demo && <DemoModal theme={demo} onClose={() => setDemo(null)} onOrder={(t) => { setDemo(null); setOrder(t); }} />}
       {order && <OrderModal theme={order} onClose={() => setOrder(null)} />}
     </div>
   );
