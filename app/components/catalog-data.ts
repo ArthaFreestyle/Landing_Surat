@@ -34,7 +34,7 @@ export const INVITE_THEMES: Theme[] = [
     tpl: "magazine", cover: "/catalog-magazine-cover.jpg",
     accent: "#cda24b", bg: "#161310", ink: "#f4ede1", ink2: "#a99c87",
     dark: true, motif: "rule", photo: true,
-    demoUrl: "/wedding-website.html",
+    demoUrl: "/undangan/anindya-raditya",
     quote: "Dua nama, satu kisah yang baru saja dimulai.",
   },
 ];
