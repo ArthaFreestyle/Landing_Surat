@@ -65,9 +65,9 @@ function DesignCard({ theme, onDemo }: { theme: Theme; onDemo: (t: Theme) => voi
           <a className="cat-btn cat-btn-secondary" style={{ flex: 1, textDecoration: "none" }} href={theme.demoUrl || "#"} target="_blank" rel="noopener noreferrer">
             <CatIcon.Eye width={15} height={15} /> Lihat demo
           </a>
-          <button className="cat-btn cat-btn-primary" style={{ flex: 1, background: SURAT.accent }} onClick={() => onDemo(theme)}>
+          <Link className="cat-btn cat-btn-primary" href={`/editor?desain=${theme.id}`} style={{ flex: 1, background: SURAT.accent, textDecoration: "none" }}>
             <CatIcon.Cart width={15} height={15} /> Pesan
-          </button>
+          </Link>
         </div>
       </div>
     </div>

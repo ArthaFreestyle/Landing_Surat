@@ -263,6 +263,11 @@ export function EditorApp() {
   const [ready, setReady] = useState(false);
   const [saved, setSaved] = useState(false);
   const [checkout, setCheckout] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [sheetH, setSheetH] = useState(400);
+  const [dragging, setDragging] = useState(false);
+  const sheetHRef = useRef(sheetH);
+  sheetHRef.current = sheetH;
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const stateRef = useRef(state);
   stateRef.current = state;
@@ -271,19 +276,6 @@ export function EditorApp() {
     const id = new URLSearchParams(window.location.search).get("desain");
     orderTheme.current = INVITE_THEMES.find(t => t.id === id) ?? INVITE_THEMES[0];
   }
-
-  // Mobile bottom-sheet — safe initial values for SSR
-  const [isMobile, setIsMobile] = useState(false);
-  const [sheetH, setSheetH] = useState(400);
-  const [dragging, setDragging] = useState(false);
-  const sheetHRef = useRef(sheetH);
-  sheetHRef.current = sheetH;
-
-  // Correct mobile state after mount
-  useEffect(() => {
-    setIsMobile(window.innerWidth < 880);
-    setSheetH(Math.round(window.innerHeight * 0.52));
-  }, []);
 
   const win = () => iframeRef.current?.contentWindow ?? null;
 
@@ -378,6 +370,11 @@ export function EditorApp() {
     if (fr) fr.src = fr.src;
     setReady(false);
   };
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 880);
+    setSheetH(Math.round(window.innerHeight * 0.52));
+  }, []);
 
   useEffect(() => {
     function onResize() {
