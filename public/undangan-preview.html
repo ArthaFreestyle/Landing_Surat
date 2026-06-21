@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<title>Preview Undangan</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400;500&family=Marcellus&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --cream: #FDFBF7;
+    --cream-deep: #F4EFE6;
+    --charcoal: #2C2C2C;
+    --charcoal-soft: #57534b;
+    --gold: #D4AF37;
+    --serif: "Cormorant Garamond", Georgia, serif;
+    --sans: "Montserrat", "Helvetica Neue", Helvetica, system-ui, sans-serif;
+    --maxw: 1240px;
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--cream);
+    color: var(--charcoal);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 400; margin: 0; }
+  img { display: block; max-width: 100%; }
+
+  .eyebrow {
+    font-family: var(--sans);
+    font-size: 0.72rem; font-weight: 400;
+    letter-spacing: 0.42em; text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  /* Photo placeholder */
+  .photo {
+    position: relative; overflow: hidden;
+    background-color: var(--cream-deep);
+    background-image: repeating-linear-gradient(135deg, rgba(44,44,44,0.045) 0px, rgba(44,44,44,0.045) 1px, transparent 1px, transparent 11px);
+  }
+  .photo::after {
+    content: attr(data-label);
+    position: absolute; left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--sans); font-size: 0.62rem;
+    letter-spacing: 0.32em; text-transform: uppercase;
+    color: rgba(44,44,44,0.4); white-space: nowrap; pointer-events: none;
+  }
+  .photo.has-img::after { display: none; }
+
+  /* highlight on focus from editor */
+  [data-field].sx-flash { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 2px; }
+
+  /* Nav */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.4rem clamp(1.25rem, 5vw, 4rem);
+    transition: background 0.5s ease, box-shadow 0.5s ease, padding 0.5s ease;
+  }
+  nav.scrolled { background: rgba(253,251,247,0.92); backdrop-filter: blur(8px); box-shadow: 0 1px 0 rgba(44,44,44,0.07); padding-top: 0.9rem; padding-bottom: 0.9rem; }
+  .monogram { font-family: var(--serif); font-size: 1.4rem; letter-spacing: 0.1em; color: var(--cream); transition: color 0.5s ease; }
+  nav.scrolled .monogram { color: var(--charcoal); }
+  .nav-links { display: flex; gap: clamp(0.9rem, 2.5vw, 2.2rem); align-items: center; }
+  .nav-links a { font-family: var(--sans); font-size: 0.66rem; font-weight: 400; letter-spacing: 0.24em; text-transform: uppercase; text-decoration: none; color: var(--cream); transition: color 0.5s ease, opacity 0.3s ease; opacity: 0.85; white-space: nowrap; }
+  nav.scrolled .nav-links a { color: var(--charcoal-soft); }
+  .nav-links a.nav-cta { color: var(--gold); opacity: 1; }
+
+  /* Hero */
+  .hero { position: relative; min-height: 100vh; min-height: 100svh; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
+  .hero .photo { position: absolute; inset: 0; background-color: #3a352e; }
+  .hero .photo::after { color: rgba(253,251,247,0.45); }
+  .hero .photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 38%; }
+  .hero-scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,18,15,0.45) 0%, rgba(20,18,15,0.12) 30%, rgba(20,18,15,0.2) 60%, rgba(20,18,15,0.6) 100%); }
+  .hero-inner { position: relative; z-index: 2; color: var(--cream); padding: 5rem 1.5rem 4rem; max-width: 960px; }
+  .hero-eyebrow { font-size: clamp(0.62rem, 2.2vw, 0.78rem); letter-spacing: 0.45em; text-transform: uppercase; color: rgba(253,251,247,0.85); font-weight: 400; }
+  .hero-title { font-size: clamp(3rem, 13vw, 8.5rem); line-height: 0.98; font-weight: 300; margin: 0.4em 0 0.3em; letter-spacing: 0.01em; }
+  .hero-title .amp { font-style: italic; font-weight: 300; color: var(--gold); display: block; font-size: 0.42em; margin: 0.18em 0; }
+  .hero-title .line { display: block; }
+  .hero-date { font-family: var(--sans); font-size: clamp(0.64rem, 2.6vw, 0.8rem); letter-spacing: 0.28em; text-transform: uppercase; color: rgba(253,251,247,0.9); margin-bottom: 2.6rem; line-height: 2.2; }
+  .hero-date span { color: var(--gold); margin: 0 0.5rem; }
+  .scroll-cue { position: absolute; bottom: 2rem; left: 0; right: 0; z-index: 3; display: flex; flex-direction: column; align-items: center; gap: 0.7rem; color: rgba(253,251,247,0.8); }
+  .scroll-cue span { font-family: var(--sans); font-size: 0.58rem; letter-spacing: 0.3em; text-transform: uppercase; }
+  .scroll-line { width: 1px; height: 46px; background: rgba(253,251,247,0.5); transform-origin: top; animation: scrollPulse 2.4s ease-in-out infinite; }
+  @keyframes scrollPulse { 0%,100% { transform: scaleY(0.4); opacity: 0.4; } 50% { transform: scaleY(1); opacity: 1; } }
+
+  /* Reveal */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 1s cubic-bezier(.16,.7,.3,1), transform 1s cubic-bezier(.16,.7,.3,1); }
+  .reveal.in { opacity: 1; transform: none; }
+
+  section { position: relative; }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 clamp(1.25rem, 5vw, 4rem); }
+  .pad { padding-top: clamp(4rem, 12vw, 9rem); padding-bottom: clamp(4rem, 12vw, 9rem); }
+
+  /* Story */
+  .story { display: grid; grid-template-columns: 1.05fr 1fr; align-items: center; gap: clamp(2.5rem, 6vw, 6rem); }
+  .story .photo { aspect-ratio: 4 / 5; }
+  .story-text { max-width: 30rem; }
+  .story-text .eyebrow { display: block; margin-bottom: 1.6rem; }
+  .story-quote { font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(1.7rem, 5.5vw, 2.9rem); line-height: 1.32; color: var(--charcoal); margin: 0 0 1.8rem; text-wrap: balance; }
+  .story-quote .gold { color: var(--gold); }
+  .story-body { font-size: 0.92rem; color: var(--charcoal-soft); line-height: 1.9; }
+  @media (max-width: 820px) { .story { grid-template-columns: 1fr; gap: 2.5rem; } .story .photo { aspect-ratio: 3 / 4; } }
+
+  /* Couple */
+  .couple-photo { max-width: 420px; margin: 0 auto clamp(2.5rem, 6vw, 3.5rem); }
+  .couple-photo .photo { aspect-ratio: 3 / 4; box-shadow: 0 40px 90px -55px rgba(0,0,0,0.55); }
+  .couple-names { display: grid; grid-template-columns: 1fr auto 1fr; align-items: start; gap: clamp(1.5rem, 4vw, 3rem); max-width: 860px; margin: 0 auto; }
+  .person { text-align: center; }
+  .person h3 { font-size: clamp(1.9rem, 4vw, 2.8rem); font-weight: 400; line-height: 1.1; }
+  .person .role { font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); margin: 0.9rem 0 0.5rem; }
+  .person .parents { font-size: 0.84rem; color: var(--charcoal-soft); line-height: 1.7; max-width: 22rem; margin: 0 auto; }
+  .couple-amp { font-family: var(--serif); font-style: italic; font-size: clamp(2.4rem, 5vw, 3.6rem); color: var(--gold); line-height: 1; align-self: center; text-align: center; }
+  @media (max-width: 680px) { .couple-names { grid-template-columns: 1fr; gap: 1.5rem; } .couple-amp { margin: 0.3rem 0; } }
+
+  .sec-head { text-align: center; margin-bottom: clamp(2.5rem, 6vw, 5rem); }
+  .sec-head .eyebrow { display: block; margin-bottom: 1rem; }
+  .sec-head h2 { font-size: clamp(2.2rem, 7vw, 4.2rem); font-weight: 300; line-height: 1.05; }
+  .sec-head .sub { font-size: 0.88rem; color: var(--charcoal-soft); margin-top: 1rem; max-width: 34rem; margin-left: auto; margin-right: auto; }
+
+  /* Gallery */
+  .gallery-band { background: var(--cream-deep); }
+  .masonry { columns: 3; column-gap: 1rem; }
+  .masonry .photo { width: 100%; margin-bottom: 1rem; break-inside: avoid; }
+  .masonry .photo img { display: block; width: 100%; }
+  @media (max-width: 900px) { .masonry { columns: 2; } }
+
+  /* Details */
+  .details-grid { display: grid; grid-template-columns: 1fr 1px 1fr; gap: clamp(2rem, 6vw, 5rem); align-items: stretch; }
+  .v-divider { background: linear-gradient(180deg, transparent, rgba(212,175,55,0.55), transparent); width: 1px; }
+  .event { text-align: center; }
+  .event h3 { font-size: clamp(1.8rem, 6vw, 2.6rem); font-weight: 300; margin: 0.7rem 0 0.2rem; }
+  .event .when { font-family: var(--serif); font-style: italic; font-size: 1.3rem; color: var(--charcoal-soft); margin-bottom: 1.6rem; }
+  .event .hairline { width: 46px; height: 1px; background: var(--gold); margin: 1.5rem auto; }
+  .event .line { font-size: 0.86rem; color: var(--charcoal-soft); margin: 0.25rem 0; letter-spacing: 0.02em; }
+  .event .venue { font-size: 0.95rem; color: var(--charcoal); letter-spacing: 0.05em; margin-bottom: 0.2rem; }
+  .event .map-btn { display: inline-flex; align-items: center; gap: 0.5em; margin-top: 1.4rem; padding: 0.7rem 1.6rem; border: 1px solid var(--gold); border-radius: 999px; font-size: 0.7rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); text-decoration: none; }
+  .event .map-btn::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--gold); }
+  @media (max-width: 760px) { .details-grid { grid-template-columns: 1fr; } .v-divider { width: 64px; height: 1px; background: linear-gradient(90deg, transparent, rgba(212,175,55,0.55), transparent); margin: 0 auto; } }
+
+  .countdown { display: flex; flex-wrap: wrap; justify-content: center; gap: clamp(1.1rem, 5vw, 3.5rem); margin-top: clamp(2.5rem, 6vw, 4.5rem); }
+  .cd-unit { text-align: center; min-width: 60px; }
+  .cd-num { font-family: var(--serif); font-size: clamp(2.2rem, 9vw, 3.6rem); font-weight: 300; line-height: 1; color: var(--charcoal); }
+  .cd-label { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--charcoal-soft); margin-top: 0.6rem; }
+
+  /* Gift */
+  .gift-band { position: relative; background-color: #2b2620; background-image: repeating-linear-gradient(135deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 12px); color: var(--cream); }
+  .gift-band .sec-head h2 { color: var(--cream); }
+  .gift-band .sec-head .sub { color: rgba(253,251,247,0.72); }
+  .gift-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.4rem; max-width: 760px; margin: 0 auto; }
+  @media (max-width: 620px) { .gift-grid { grid-template-columns: 1fr; } }
+  .bank-card { background: var(--cream); color: var(--charcoal); padding: clamp(1.8rem, 5vw, 2.6rem); display: flex; flex-direction: column; gap: 0.4rem; box-shadow: 0 30px 70px -50px rgba(0,0,0,0.8); }
+  .bank-card .bank-name { font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); }
+  .bank-card .bank-no { font-family: var(--serif); font-size: clamp(1.6rem, 6vw, 2.1rem); letter-spacing: 0.06em; color: var(--charcoal); margin: 0.5rem 0 0.1rem; word-break: break-word; }
+  .bank-card .bank-holder { font-size: 0.82rem; color: var(--charcoal-soft); letter-spacing: 0.04em; }
+
+  /* Footer */
+  footer { text-align: center; padding: clamp(3.5rem, 8vw, 6rem) 1.5rem; background: var(--cream); }
+  footer .monofoot { font-family: var(--serif); font-size: clamp(2rem, 8vw, 2.6rem); color: var(--charcoal); letter-spacing: 0.06em; }
+  footer .amp { color: var(--gold); font-style: italic; }
+  footer .foot-date { font-size: 0.72rem; letter-spacing: 0.32em; text-transform: uppercase; color: var(--charcoal-soft); margin-top: 1.2rem; }
+  footer .hashtag { font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-top: 2rem; }
+  footer .foot-quote { font-family: var(--serif); font-style: italic; font-size: clamp(1.1rem, 3.4vw, 1.55rem); color: var(--charcoal-soft); max-width: 32rem; margin: 0 auto clamp(2.5rem, 6vw, 3.5rem); line-height: 1.55; text-wrap: balance; }
+  footer .foot-divider { width: 40px; height: 1px; background: rgba(44,44,44,0.15); margin: 2.6rem auto 0; }
+  footer .watermark { display: inline-flex; align-items: baseline; gap: 0.5em; margin-top: 1.6rem; font-family: var(--sans); font-size: 0.58rem; font-weight: 400; letter-spacing: 0.32em; text-transform: uppercase; color: var(--charcoal-soft); text-decoration: none; opacity: 0.65; }
+  footer .watermark b { font-weight: 500; color: var(--gold); letter-spacing: 0.18em; }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="monogram" data-field="monogram">A&nbsp;&amp;&nbsp;R</div>
+  <div class="nav-links">
+    <a href="#story">Kisah</a>
+    <a href="#gallery">Galeri</a>
+    <a href="#details">Acara</a>
+    <a href="#ucapan" class="nav-cta">Ucapan</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" data-screen-label="Hero">
+  <div class="photo has-img" id="heroPhoto" data-label="foto pre-wedding layar penuh">
+    <img id="heroImg" src="/uploads/pexels-marvin-malmis-ponce-13470064-scaled-1.webp" alt="" />
+  </div>
+  <div class="hero-scrim"></div>
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Dengan memohon rahmat dan ridha Tuhan Yang Maha Esa</p>
+    <h1 class="hero-title">
+      <span class="line" data-field="groom">Anindya</span>
+      <span class="amp">&amp;</span>
+      <span class="line" data-field="bride">Raditya</span>
+    </h1>
+    <p class="hero-date" data-field="heroDate">Sabtu <span>·</span> 12 September 2026 <span>·</span> Ubud, Bali</p>
+  </div>
+  <div class="scroll-cue"><span>Geser</span><div class="scroll-line"></div></div>
+</header>
+
+<!-- MEMPELAI -->
+<section id="couple" class="pad" data-screen-label="Mempelai">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">The Bride &amp; The Groom</span>
+      <h2>Mempelai</h2>
+    </div>
+    <div class="couple-photo reveal">
+      <div class="photo has-img" id="couplePhoto" data-label="foto mempelai">
+        <img id="coupleImg" src="/uploads/pexels-marvin-malmis-ponce-13470034-scaled-1.webp" alt="" loading="lazy" />
+      </div>
+    </div>
+    <div class="couple-names reveal">
+      <div class="person">
+        <h3 data-field="brideFull">Anindya Larasati</h3>
+        <p class="role" data-field="brideRole">Putri Bungsu dari</p>
+        <p class="parents" data-field="brideParents">Bapak H. Suryana Wijaya<br />&amp; Ibu Hj. Mariati Salim</p>
+      </div>
+      <div class="couple-amp">&amp;</div>
+      <div class="person">
+        <h3 data-field="groomFull">Raditya Wibisana</h3>
+        <p class="role" data-field="groomRole">Putra Sulung dari</p>
+        <p class="parents" data-field="groomParents">Bapak Hendarto Pranoto<br />&amp; Ibu Retno Kusumawati</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KISAH -->
+<section id="story" class="pad" data-screen-label="Kisah">
+  <div class="wrap">
+    <div class="story">
+      <div class="photo reveal has-img" id="storyPhoto" data-label="potret editorial">
+        <img id="storyImg" src="/uploads/pexels-marvin-malmis-ponce-13470063-scaled-1.webp" alt="" />
+      </div>
+      <div class="story-text reveal">
+        <span class="eyebrow" data-field="storyEyebrow">QS. Ar-Rum : 21</span>
+        <p class="story-quote" data-field="storyQuote">"Dan di antara tanda-tanda kekuasaan-Nya, Dia menciptakan untukmu pasangan dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya."</p>
+        <p class="story-body" data-field="storyBody">Dengan memohon rahmat dan rido Tuhan Yang Maha Esa, kami bermaksud menyelenggarakan pernikahan kami. Merupakan suatu kebahagiaan dan kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALERI -->
+<section id="gallery" class="gallery-band pad" data-screen-label="Galeri">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Galeri</span>
+      <h2>Momen</h2>
+      <p class="sub">Kumpulan bingkai dari perjalanan kami berdua.</p>
+    </div>
+    <div class="masonry" id="masonry"></div>
+  </div>
+</section>
+
+<!-- ACARA -->
+<section id="details" class="pad" data-screen-label="Acara">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Acara</span>
+      <h2>Waktu &amp; Tempat</h2>
+      <p class="sub">Dengan penuh suka cita, kami mengundang Bapak/Ibu/Saudara/i untuk hadir di hari bahagia kami.</p>
+    </div>
+    <div class="details-grid reveal">
+      <div class="event">
+        <h3 data-field="akadTitle">Akad Nikah</h3>
+        <p class="when" data-field="akadWhen">Sabtu, 12 September 2026</p>
+        <div class="hairline"></div>
+        <p class="line" data-field="akadTime">Pukul 16.00 WITA</p>
+        <p class="venue" data-field="akadVenue">Pura Taman Saraswati</p>
+        <p class="line" data-field="akadAddr">Jl. Kajeng, Ubud, Bali</p>
+        <a class="map-btn" id="akadMap" href="#" target="_blank" rel="noopener">Petunjuk Arah</a>
+      </div>
+      <div class="v-divider"></div>
+      <div class="event">
+        <h3 data-field="resepTitle">Resepsi</h3>
+        <p class="when" data-field="resepWhen">Sabtu, 12 September 2026</p>
+        <div class="hairline"></div>
+        <p class="line" data-field="resepTime">Pukul 19.00 WITA</p>
+        <p class="venue" data-field="resepVenue">The Garden Pavilion</p>
+        <p class="line" data-field="resepAddr">Four Seasons, Sayan, Ubud</p>
+        <a class="map-btn" id="resepMap" href="#" target="_blank" rel="noopener">Petunjuk Arah</a>
+      </div>
+    </div>
+    <div class="countdown reveal" id="countdown">
+      <div class="cd-unit"><div class="cd-num" data-cd="days">—</div><div class="cd-label">Hari</div></div>
+      <div class="cd-unit"><div class="cd-num" data-cd="hours">—</div><div class="cd-label">Jam</div></div>
+      <div class="cd-unit"><div class="cd-num" data-cd="mins">—</div><div class="cd-label">Menit</div></div>
+      <div class="cd-unit"><div class="cd-num" data-cd="secs">—</div><div class="cd-label">Detik</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TANDA KASIH -->
+<section id="gift" class="gift-band pad" data-screen-label="Tanda Kasih">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Tanda Kasih</span>
+      <h2>Wedding Gift</h2>
+      <p class="sub">Doa restu Anda adalah karunia yang berarti. Bila berkenan memberi tanda kasih, dapat melalui rekening berikut.</p>
+    </div>
+    <div class="gift-grid reveal">
+      <div class="bank-card">
+        <span class="bank-name" data-field="bank1Name">Bank BCA</span>
+        <div class="bank-no" data-field="bank1No">1234 5678 90</div>
+        <span class="bank-holder" data-field="bank1Holder">a.n. Anindya Larasati</span>
+      </div>
+      <div class="bank-card">
+        <span class="bank-name" data-field="bank2Name">Bank Mandiri</span>
+        <div class="bank-no" data-field="bank2No">0987 6543 21</div>
+        <span class="bank-holder" data-field="bank2Holder">a.n. Raditya Wibisana</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer data-screen-label="Footer">
+  <p class="foot-quote">"Atas kehadiran dan doa restu Bapak/Ibu/Saudara/i, kami sekeluarga mengucapkan terima kasih."</p>
+  <div class="monofoot"><span data-field="footGroom">Anindya</span> <span class="amp">&amp;</span> <span data-field="footBride">Raditya</span></div>
+  <p class="foot-date" data-field="footDate">12 · 09 · 2026 — Ubud, Bali</p>
+  <p class="hashtag" data-field="hashtag">#AnindyaRaditya</p>
+  <div class="foot-divider"></div>
+  <a class="watermark" href="https://surat.pro" target="_blank" rel="noopener">Undangan oleh <b>surat.pro</b></a>
+</footer>
+
+<script>
+  var DEFAULT_GALLERY = [
+    '/uploads/pexels-marvin-malmis-ponce-13470034-scaled-1.webp',
+    '/uploads/pexels-marvin-malmis-ponce-13470072-scaled-1-1.webp',
+    '/uploads/pexels-marvin-malmis-ponce-13470037-scaled-1.webp',
+    '/uploads/pexels-marvin-malmis-ponce-13470047-scaled-1.webp',
+    '/uploads/pexels-marvin-malmis-ponce-13470064-scaled-1.webp',
+    '/uploads/pexels-marvin-malmis-ponce-13470063-scaled-1.webp'
+  ];
+  var gallery = DEFAULT_GALLERY.slice();
+  var isoDate = '2026-09-12';
+  var city = 'Ubud, Bali';
+
+  var MONTHS = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+  var DAYS = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+
+  function fmtLong(iso) {
+    var p = iso.split('-'); if (p.length !== 3) return iso;
+    var d = new Date(+p[0], +p[1]-1, +p[2]);
+    return DAYS[d.getDay()] + ', ' + (+p[2]) + ' ' + MONTHS[+p[1]-1] + ' ' + p[0];
+  }
+  function fmtHero(iso) {
+    var p = iso.split('-'); if (p.length !== 3) return iso;
+    var d = new Date(+p[0], +p[1]-1, +p[2]);
+    return DAYS[d.getDay()] + ' <span>\xB7</span> ' + (+p[2]) + ' ' + MONTHS[+p[1]-1] + ' ' + p[0] + ' <span>\xB7</span> ' + city;
+  }
+  function fmtFootDate(iso) {
+    var p = iso.split('-'); if (p.length !== 3) return iso;
+    return p[2] + ' \xB7 ' + p[1] + ' \xB7 ' + p[0] + ' — ' + city;
+  }
+  function set(field, value) {
+    var el = document.querySelector('[data-field="' + field + '"]');
+    if (el) el.innerHTML = value;
+  }
+
+  function renderGallery() {
+    var m = document.getElementById('masonry');
+    m.innerHTML = '';
+    gallery.forEach(function (src) {
+      var fig = document.createElement('div');
+      fig.className = 'photo has-img';
+      var img = document.createElement('img');
+      img.src = src; img.alt = ''; img.loading = 'lazy';
+      fig.appendChild(img);
+      m.appendChild(fig);
+    });
+  }
+  renderGallery();
+
+  function refreshDates() {
+    set('heroDate', fmtHero(isoDate));
+    set('akadWhen', fmtLong(isoDate));
+    set('resepWhen', fmtLong(isoDate));
+    set('footDate', fmtFootDate(isoDate));
+  }
+  refreshDates();
+
+  var mapUrls = { akadMap: '', resepMap: '' };
+  function applyMap(id, venue) {
+    var a = document.getElementById(id);
+    if (!a) return;
+    if (mapUrls[id]) a.href = mapUrls[id];
+    else a.href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(venue || '');
+  }
+  applyMap('akadMap', document.querySelector('[data-field="akadVenue"]').textContent);
+  applyMap('resepMap', document.querySelector('[data-field="resepVenue"]').textContent);
+
+  var IMG_FIELDS = { heroImg: 'heroPhoto', coupleImg: 'couplePhoto', storyImg: 'storyPhoto' };
+  window.addEventListener('message', function (e) {
+    var d = e.data || {};
+    if (d.type === 'surat-set') {
+      var f = d.field, v = d.value;
+      if (f === 'isoDate') { isoDate = v; refreshDates(); return; }
+      if (f === 'city') { city = v; refreshDates(); return; }
+      if (f === 'accent') { document.documentElement.style.setProperty('--gold', v); return; }
+      if (f === 'serif') { document.documentElement.style.setProperty('--serif', v); return; }
+      if (f === 'sans') { document.documentElement.style.setProperty('--sans', v); return; }
+      if (f === 'akadVenue') { set('akadVenue', v); applyMap('akadMap', v); return; }
+      if (f === 'resepVenue') { set('resepVenue', v); applyMap('resepMap', v); return; }
+      if (f === 'akadMapUrl') { mapUrls.akadMap = v; applyMap('akadMap', document.querySelector('[data-field="akadVenue"]').textContent); return; }
+      if (f === 'resepMapUrl') { mapUrls.resepMap = v; applyMap('resepMap', document.querySelector('[data-field="resepVenue"]').textContent); return; }
+      if (IMG_FIELDS[f]) {
+        var img = document.getElementById(f);
+        if (img) img.src = v;
+        return;
+      }
+      if (f.indexOf('gallery') === 0) {
+        var idx = +f.replace('gallery', '');
+        if (!isNaN(idx)) { gallery[idx] = v; renderGallery(); }
+        return;
+      }
+      if (f === 'groom') { set('groom', v); set('footGroom', v); }
+      else if (f === 'bride') { set('bride', v); set('footBride', v); }
+      else { set(f, v); }
+      return;
+    }
+    if (d.type === 'surat-monogram') { set('monogram', d.value); return; }
+    if (d.type === 'surat-flash') {
+      document.querySelectorAll('.sx-flash').forEach(function (n) { n.classList.remove('sx-flash'); });
+      var t = document.querySelector('[data-field="' + d.field + '"]') || document.getElementById(d.field);
+      if (t) {
+        t.classList.add('sx-flash');
+        var top = t.getBoundingClientRect().top + window.scrollY - window.innerHeight * 0.35;
+        window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+      }
+      return;
+    }
+    if (d.type === 'surat-flash-clear') {
+      document.querySelectorAll('.sx-flash').forEach(function (n) { n.classList.remove('sx-flash'); });
+      return;
+    }
+  });
+
+  var nav = document.getElementById('nav');
+  function onScroll() { nav.classList.toggle('scrolled', window.scrollY > window.innerHeight * 0.6); }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+
+  var cd = {
+    days: document.querySelector('[data-cd="days"]'),
+    hours: document.querySelector('[data-cd="hours"]'),
+    mins: document.querySelector('[data-cd="mins"]'),
+    secs: document.querySelector('[data-cd="secs"]')
+  };
+  var pad = function (n) { return String(n).padStart(2, '0'); };
+  function tickCd() {
+    var target = new Date(isoDate + 'T08:00:00').getTime();
+    var diff = Math.max(0, target - Date.now());
+    cd.days.textContent = Math.floor(diff / 86400000);
+    cd.hours.textContent = pad(Math.floor(diff % 86400000 / 3600000));
+    cd.mins.textContent = pad(Math.floor(diff % 3600000 / 60000));
+    cd.secs.textContent = pad(Math.floor(diff % 60000 / 1000));
+  }
+  tickCd();
+  setInterval(tickCd, 1000);
+
+  if (window.parent !== window) window.parent.postMessage({ type: 'surat-preview-ready' }, '*');
+</script>
+</body>
+</html>

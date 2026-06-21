@@ -17,6 +17,8 @@ body {
 }
 
 /* ── Keyframe animations ───────────────────────────────────────────── */
+@keyframes sx-fade { from { opacity: 0 } to { opacity: 1 } }
+@keyframes sx-pop  { from { opacity: 0; transform: translateY(10px) scale(.98) } to { opacity: 1; transform: none } }
 @keyframes sx-shimmer {
   0%   { background-position: -120px 0; }
   100% { background-position:  120px 0; }
