@@ -37,9 +37,17 @@ export const INVITE_THEMES: Theme[] = [
     demoUrl: "/undangan/anindya-raditya",
     quote: "Dua nama, satu kisah yang baru saja dimulai.",
   },
+  {
+    id: "boho", name: "Boho Klasik", cat: "Klasik", price: 99000,
+    tpl: "boho",
+    accent: "#9A5B43", bg: "#FBF7EF", ink: "#4A3F33", ink2: "#7E715F",
+    motif: "diamond", photo: true,
+    demoUrl: "/undangan/kayla-raka",
+    quote: "Kepercayaan membuat semua hal menjadi mungkin, dan cinta membuat semua hal menjadi mudah.",
+  },
 ];
 
-export const INVITE_CATS = ["Semua", "Modern"];
+export const INVITE_CATS = ["Semua", "Modern", "Klasik"];
 
 // Order packages (shared across themes; price adds to the theme base)
 export const INVITE_PACKAGES: Package[] = [

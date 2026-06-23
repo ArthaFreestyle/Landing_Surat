@@ -1,0 +1,304 @@
+/* ============================================================
+   Undangan Boho Klasik — scoped under .boho
+   Palet: krem · sage · terracotta · taupe emas
+   Fonts are injected via next/font CSS variables on the wrapper:
+     --font-cormorant · --font-pinyon · --font-jakarta · --font-amiri
+   ============================================================ */
+.boho {
+  --cream:    #FBF7EF;
+  --cream-2:  #F4ECDD;
+  --sand:     #EADCC6;
+  --sage:     #8E9B82;
+  --sage-deep:#6E7B62;
+  --terra:    #B07B5C;
+  --rust:     #9A5B43;
+  --taupe:    #A8916F;
+  --gold:     #C2A36B;
+  --ink:      #4A3F33;
+  --ink-soft: #7E715F;
+  --serif:  var(--font-cormorant), Georgia, serif;
+  --script: var(--font-pinyon), var(--font-cormorant), cursive;
+  --sans:   var(--font-jakarta), "Helvetica Neue", Helvetica, system-ui, sans-serif;
+  --arab:   var(--font-amiri), "Times New Roman", serif;
+
+  position: relative;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-weight: 300;
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+.boho * { box-sizing: border-box; }
+.boho h1, .boho h2, .boho h3 { font-family: var(--serif); font-weight: 400; margin: 0; }
+.boho img { display: block; max-width: 100%; }
+.boho ::selection { background: rgba(176, 123, 92, 0.22); color: var(--rust); }
+
+/* paper texture — sangat halus */
+.boho::before {
+  content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(60% 50% at 50% 0%, rgba(234, 220, 198, 0.5), transparent 70%),
+    radial-gradient(70% 60% at 50% 100%, rgba(234, 220, 198, 0.4), transparent 70%),
+    var(--cream);
+}
+
+.boho .eyebrow {
+  font-family: var(--sans); font-size: 0.66rem; font-weight: 500;
+  letter-spacing: 0.4em; text-transform: uppercase; color: var(--taupe);
+}
+.boho .script { font-family: var(--script); font-weight: 400; line-height: 1; }
+
+/* ---------- Sprig ornament ---------- */
+.boho .ornament { color: var(--gold); width: clamp(140px, 42vw, 220px); height: auto; display: block; margin: 0 auto; }
+.boho .ornament.sage { color: var(--sage); }
+
+/* ---------- Buttons ---------- */
+.boho .btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.7em;
+  font-family: var(--sans); font-size: 0.68rem; font-weight: 500; letter-spacing: 0.24em;
+  text-transform: uppercase; text-decoration: none; color: #fff; padding: 1.05em 2.3em;
+  border: 1px solid var(--sage-deep); background: var(--sage-deep); cursor: pointer;
+  transition: background .4s, color .4s, letter-spacing .4s, box-shadow .4s;
+  box-shadow: 0 16px 34px -20px rgba(110, 123, 98, 0.9);
+}
+.boho .btn:hover { letter-spacing: 0.3em; background: var(--sage); border-color: var(--sage); }
+.boho .btn--ghost { background: transparent; color: var(--sage-deep); box-shadow: none; }
+.boho .btn--ghost:hover { background: var(--sage-deep); color: #fff; }
+.boho .btn--terra { background: var(--rust); border-color: var(--rust); box-shadow: 0 16px 34px -20px rgba(154, 91, 67, 0.9); }
+.boho .btn--terra:hover { background: var(--terra); border-color: var(--terra); }
+
+/* ============================================================
+   SCREEN SCAFFOLD — satu kolom, layar penuh, berbingkai bunga
+   ============================================================ */
+.boho .screen {
+  position: relative; min-height: 100vh; min-height: 100svh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: clamp(5rem, 13vw, 8rem) clamp(1.4rem, 6vw, 3rem); overflow: hidden;
+}
+.boho .screen > .inner { position: relative; z-index: 2; width: 100%; max-width: 600px; }
+
+/* corner florals */
+.boho .corners { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.boho .corners .c {
+  position: absolute; width: clamp(108px, 30vw, 232px); height: auto;
+  filter: drop-shadow(0 14px 20px rgba(122, 96, 58, 0.16));
+}
+.boho .corners .tl { top: 0; left: 0; transform-origin: top left; animation: bk-sway-tl 7.5s ease-in-out infinite; }
+.boho .corners .tr { top: 0; right: 0; transform-origin: top right; animation: bk-sway-tr 8.5s ease-in-out infinite; }
+.boho .corners .bl { bottom: 0; left: 0; transform-origin: bottom left; animation: bk-sway-bl 8s ease-in-out infinite; }
+.boho .corners .br { bottom: 0; right: 0; transform-origin: bottom right; animation: bk-sway-br 9s ease-in-out infinite; }
+@keyframes bk-sway-tl { 0%,100% { transform: rotate(0deg) translate(0,0); } 50% { transform: rotate(1.3deg) translate(2px,4px); } }
+@keyframes bk-sway-tr { 0%,100% { transform: rotate(0deg) translate(0,0); } 50% { transform: rotate(-1.3deg) translate(-2px,4px); } }
+@keyframes bk-sway-bl { 0%,100% { transform: rotate(0deg) translate(0,0); } 50% { transform: rotate(-1.1deg) translate(2px,-4px); } }
+@keyframes bk-sway-br { 0%,100% { transform: rotate(0deg) translate(0,0); } 50% { transform: rotate(1.1deg) translate(-2px,-4px); } }
+.boho .corners.top-only .bl, .boho .corners.top-only .br { display: none; }
+
+/* reveal on scroll */
+.boho .up { opacity: 0; transform: translateY(30px); transition: opacity 1.1s ease, transform 1.1s cubic-bezier(.2,.7,.2,1); }
+.boho .up.in { opacity: 1; transform: none; }
+.boho .up.d1 { transition-delay: .12s; }
+.boho .up.d2 { transition-delay: .24s; }
+.boho .up.d3 { transition-delay: .36s; }
+
+/* tinted screens for rhythm */
+.boho .tint { background: linear-gradient(180deg, var(--cream) 0%, var(--cream-2) 100%); }
+
+/* full photo backgrounds with depth parallax (zoom + drift) */
+.boho .bg { position: absolute; inset: -18% 0; z-index: 0; overflow: hidden; pointer-events: none; will-change: transform; }
+.boho .bg img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.1); }
+.boho .bg.slide img { opacity: 0; animation: bk-ssFade 22s infinite; }
+.boho .bg.slide img:nth-child(2) { animation-delay: 7.33s; }
+.boho .bg.slide img:nth-child(3) { animation-delay: 14.66s; }
+.boho .bg::after {
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(130% 100% at 50% 44%, rgba(251,247,239,0.74) 0%, rgba(251,247,239,0.82) 55%, rgba(244,236,221,0.90) 100%);
+}
+.boho .bg--soft::after { background: linear-gradient(180deg, rgba(251,247,239,0.90) 0%, rgba(251,247,239,0.84) 50%, rgba(251,247,239,0.92) 100%); }
+.boho .bg--gate::after { background: radial-gradient(120% 82% at 50% 42%, rgba(251,247,239,0.50) 0%, rgba(251,247,239,0.74) 58%, rgba(247,238,223,0.93) 100%); }
+@keyframes bk-ssFade { 0% { opacity: 0; } 6% { opacity: 1; } 28% { opacity: 1; } 34% { opacity: 0; } 100% { opacity: 0; } }
+.boho .penutup { padding-bottom: clamp(7rem, 17vw, 10rem); }
+
+/* ============================================================
+   GERBANG / COVER
+   ============================================================ */
+.boho #gate {
+  position: fixed; inset: 0; z-index: 200;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+  padding: clamp(4.5rem,12vw,7rem) 1.5rem; overflow: hidden;
+  background: radial-gradient(120% 80% at 50% 14%, #FFFDF8 0%, #F6EEDF 55%, #EFE2CC 100%);
+  transition: opacity 1s ease, transform 1.1s cubic-bezier(.7,0,.2,1);
+}
+.boho #gate.is-open { opacity: 0; transform: scale(1.04); pointer-events: none; }
+.boho .gate-inner { position: relative; z-index: 2; max-width: 460px; }
+.boho .gate-eyebrow { font-size: 0.62rem; letter-spacing: 0.44em; text-transform: uppercase; color: var(--taupe); }
+.boho .gate-names { font-family: var(--script); font-size: clamp(3.6rem, 19vw, 6rem); color: var(--rust); line-height: 0.9; margin: 0.35em 0 0.3em; }
+.boho .gate-sub { font-size: 0.78rem; color: var(--ink-soft); max-width: 22rem; margin: 0 auto; line-height: 1.7; }
+.boho .gate-to { margin-top: 2.2rem; }
+.boho .gate-to .lbl { display: block; font-size: 0.54rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--taupe); margin-bottom: 0.5rem; }
+.boho .gate-to .guest { font-family: var(--serif); font-size: 1.6rem; color: var(--ink); }
+.boho #openBtn { margin-top: 2rem; }
+.boho .gate-corners .c {
+  position: absolute; width: clamp(130px, 40vw, 300px); height: auto;
+  filter: drop-shadow(0 16px 24px rgba(122,96,58,0.20));
+}
+.boho .gate-corners .tl { top: 0; left: 0; transform-origin: top left; animation: bk-cin 1.2s .15s ease-out both, bk-sway-tl 7.5s ease-in-out 1.4s infinite; }
+.boho .gate-corners .tr { top: 0; right: 0; transform-origin: top right; animation: bk-cin 1.2s .3s ease-out both, bk-sway-tr 8.5s ease-in-out 1.5s infinite; }
+.boho .gate-corners .bl { bottom: 0; left: 0; transform-origin: bottom left; animation: bk-cin 1.2s .45s ease-out both, bk-sway-bl 8s ease-in-out 1.6s infinite; }
+.boho .gate-corners .br { bottom: 0; right: 0; transform-origin: bottom right; animation: bk-cin 1.2s .6s ease-out both, bk-sway-br 9s ease-in-out 1.7s infinite; }
+@keyframes bk-cin { from { opacity: 0; transform: scale(.9); } to { opacity: 1; transform: none; } }
+
+/* ---------- HERO / QUOTE ---------- */
+.boho .hero .bismillah { font-family: var(--arab); font-size: clamp(1.3rem, 6vw, 1.9rem); color: var(--rust); margin-bottom: 1.4rem; }
+.boho .hero .names { font-family: var(--script); font-size: clamp(3rem, 16vw, 5.4rem); color: var(--rust); line-height: 0.95; margin: 0.2em 0; }
+.boho .hero .quote { font-family: var(--serif); font-style: italic; font-size: clamp(1.15rem, 4.4vw, 1.6rem); color: var(--ink-soft); max-width: 30rem; margin: 1.6rem auto 0; text-wrap: balance; }
+.boho .hero-photo {
+  width: clamp(170px, 46vw, 244px); aspect-ratio: 4/5; margin: 1.8rem auto 0.4rem; padding: 8px;
+  border-radius: 999px 999px 14px 14px; background: linear-gradient(135deg, var(--sand), #fff 50%, var(--sand));
+  box-shadow: 0 30px 60px -34px rgba(74,63,51,0.6);
+}
+.boho .hero-photo .hp-in { width: 100%; height: 100%; border-radius: 999px 999px 10px 10px; overflow: hidden; background: var(--cream-2); }
+.boho .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
+.boho .scroll-cue {
+  position: absolute; bottom: 5.2rem; left: 0; right: 0; z-index: 3;
+  display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: var(--taupe);
+}
+.boho .scroll-cue span { font-size: 0.52rem; letter-spacing: 0.3em; text-transform: uppercase; }
+.boho .scroll-line { width: 1px; height: 38px; background: var(--taupe); transform-origin: top; animation: bk-sp 2.4s ease-in-out infinite; }
+@keyframes bk-sp { 0%,100% { transform: scaleY(0.4); opacity: 0.4; } 50% { transform: scaleY(1); opacity: 1; } }
+
+/* ---------- AYAT ---------- */
+.boho .ayat .salam { font-weight: 500; letter-spacing: 0.02em; color: var(--sage-deep); }
+.boho .ayat .arab { font-family: var(--arab); font-size: clamp(1.5rem, 6.5vw, 2.2rem); line-height: 2; color: var(--rust); margin: 1.6rem 0; }
+.boho .ayat .terjemah { font-family: var(--serif); font-style: italic; font-size: clamp(1.05rem, 4vw, 1.4rem); line-height: 1.65; color: var(--ink-soft); text-wrap: pretty; }
+.boho .ayat .ref { margin-top: 1.4rem; font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--taupe); }
+
+/* ---------- MEMPELAI ---------- */
+.boho .couple h2 { font-size: clamp(2rem, 7vw, 3rem); color: var(--rust); }
+.boho .couple .intro { font-size: 0.92rem; color: var(--ink-soft); max-width: 30rem; margin: 1.2rem auto 0; }
+.boho .person { margin-top: clamp(2.6rem, 7vw, 4rem); }
+.boho .person .ph {
+  width: clamp(150px, 46vw, 210px); aspect-ratio: 1; border-radius: 999px; margin: 0 auto 1.4rem;
+  overflow: hidden; padding: 8px; background: linear-gradient(135deg, var(--sand), #fff 50%, var(--sand)); box-shadow: 0 24px 50px -30px rgba(74,63,51,0.6);
+}
+.boho .person .ph .photo {
+  width: 100%; height: 100%; border-radius: 999px; overflow: hidden; position: relative;
+  background-color: var(--cream-2); background-image: repeating-linear-gradient(135deg, rgba(168,145,111,0.14) 0 1px, transparent 1px 12px);
+}
+.boho .person .ph .photo > img { width: 100%; height: 100%; object-fit: cover; }
+.boho .person .nm { font-family: var(--serif); font-size: clamp(1.9rem, 6.5vw, 2.7rem); color: var(--ink); line-height: 1.1; }
+.boho .person .role { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--taupe); margin-bottom: 0.5rem; }
+.boho .person .par { font-size: 0.86rem; color: var(--ink-soft); margin-top: 0.8rem; line-height: 1.7; }
+.boho .couple-amp { font-family: var(--script); font-size: clamp(3rem, 12vw, 4.4rem); color: var(--sage); margin: clamp(1.6rem,5vw,2.4rem) 0 0; line-height: 0.5; }
+
+/* ---------- SAVE THE DATE ---------- */
+.boho .date h2 { font-size: clamp(2rem, 7vw, 3rem); color: var(--rust); }
+.boho .date .big { font-family: var(--serif); font-size: clamp(2.2rem, 9vw, 3.4rem); color: var(--ink); margin: 0.4rem 0 0.2rem; }
+.boho .date .time { font-size: 0.86rem; letter-spacing: 0.04em; color: var(--ink-soft); }
+.boho .date .place { font-size: 0.88rem; color: var(--ink-soft); margin-top: 0.3rem; }
+.boho .countdown { display: flex; flex-wrap: wrap; justify-content: center; gap: clamp(0.6rem, 3.5vw, 1.6rem); margin-top: clamp(2.2rem, 6vw, 3rem); }
+.boho .cd-unit {
+  min-width: 62px; background: #fff; border: 1px solid var(--sand); border-radius: 14px; padding: 0.9rem 0.4rem;
+  box-shadow: 0 16px 34px -26px rgba(74,63,51,0.5);
+}
+.boho .cd-num { font-family: var(--serif); font-size: clamp(1.8rem, 7vw, 2.6rem); line-height: 1; color: var(--rust); }
+.boho .cd-label { font-size: 0.5rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--taupe); margin-top: 0.5rem; }
+.boho .date .btns { display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center; margin-top: clamp(2.2rem, 6vw, 3rem); }
+
+/* ---------- ACARA ---------- */
+.boho .acara h2 { font-size: clamp(2rem, 7vw, 3rem); color: var(--rust); }
+.boho .ev-cards { display: grid; gap: 1.2rem; margin-top: clamp(2rem, 6vw, 3rem); }
+.boho .ev { background: #fff; border: 1px solid var(--sand); border-radius: 18px; padding: clamp(1.6rem, 5vw, 2.4rem); box-shadow: 0 20px 44px -30px rgba(74,63,51,0.5); }
+.boho .ev .kicker { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--taupe); }
+.boho .ev h3 { font-size: clamp(1.6rem, 5.5vw, 2.1rem); color: var(--ink); margin: 0.5rem 0; }
+.boho .ev .meta { font-size: 0.9rem; color: var(--ink-soft); line-height: 1.7; }
+.boho .ev .meta b { color: var(--rust); font-weight: 500; }
+.boho .map-btn { margin-top: 1.2rem; }
+
+/* ---------- GALERI ---------- */
+.boho .galeri h2 { font-size: clamp(2rem, 7vw, 3rem); color: var(--rust); }
+.boho .gal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(0.5rem, 1.5vw, 0.8rem); margin-top: clamp(2rem, 6vw, 3rem); }
+.boho .gal-grid .photo {
+  position: relative; overflow: hidden; border-radius: 12px; aspect-ratio: 1;
+  background-color: var(--cream-2); border: 1px solid var(--sand); box-shadow: 0 16px 34px -28px rgba(74,63,51,0.5);
+}
+.boho .gal-grid .photo > img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; transition: transform .8s cubic-bezier(.2,.7,.2,1); }
+.boho .gal-grid .photo:hover > img { transform: scale(1.05); }
+.boho .gal-grid .photo.wide { grid-column: 1 / -1; aspect-ratio: 16 / 10; }
+
+/* ---------- RSVP ---------- */
+.boho .rsvp h2 { font-size: clamp(2rem, 7vw, 3rem); color: var(--rust); }
+.boho .rsvp .sub { font-size: 0.9rem; color: var(--ink-soft); max-width: 28rem; margin: 1rem auto 0; }
+.boho .form { display: flex; flex-direction: column; gap: 1rem; margin-top: clamp(2rem, 6vw, 2.6rem); text-align: left; }
+.boho .field label { display: block; font-size: 0.56rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--taupe); margin-bottom: 0.5rem; }
+.boho .field input, .boho .field select, .boho .field textarea {
+  width: 100%; background: #fff; border: 1px solid var(--sand);
+  color: var(--ink); font-family: var(--sans); font-size: 0.96rem; padding: 0.85rem 1rem; border-radius: 12px; outline: none; transition: border-color .3s, box-shadow .3s;
+}
+.boho .field input:focus, .boho .field select:focus, .boho .field textarea:focus { border-color: var(--sage); box-shadow: 0 0 0 3px rgba(142,155,130,0.18); }
+.boho .field textarea { resize: vertical; min-height: 88px; }
+.boho .attend { display: flex; gap: 0.7rem; }
+.boho .attend button {
+  flex: 1; background: #fff; border: 1px solid var(--sand); color: var(--ink-soft);
+  font-family: var(--sans); font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.85rem; border-radius: 12px; cursor: pointer; transition: all .3s;
+}
+.boho .attend button.sel { background: var(--sage-deep); color: #fff; border-color: var(--sage-deep); }
+.boho .rsvp .form .btn { margin-top: 0.4rem; }
+.boho .rsvp-thanks { margin-top: clamp(2rem,6vw,2.6rem); }
+.boho .rsvp-thanks .script { font-size: 2.6rem; color: var(--sage); }
+.boho .rsvp-thanks p { font-family: var(--serif); font-style: italic; font-size: 1.2rem; color: var(--ink-soft); margin-top: 0.4rem; }
+.boho .wish-list { display: grid; gap: 0.8rem; margin-top: 2rem; text-align: left; max-height: 240px; overflow-y: auto; padding-right: 4px; }
+.boho .wish { background: #fff; border: 1px solid var(--sand); border-radius: 14px; padding: 0.9rem 1.1rem; }
+.boho .wish .wn { font-family: var(--serif); font-size: 1.1rem; color: var(--rust); }
+.boho .wish .wn span { font-family: var(--sans); font-size: 0.52rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sage-deep); margin-left: 0.6rem; }
+.boho .wish .wm { font-size: 0.86rem; color: var(--ink-soft); margin-top: 0.2rem; }
+
+/* ---------- PENUTUP ---------- */
+.boho .penutup .salam { font-family: var(--arab); font-size: clamp(1.2rem, 5vw, 1.7rem); color: var(--rust); line-height: 1.7; }
+.boho .penutup .msg { font-size: 0.92rem; color: var(--ink-soft); max-width: 30rem; margin: 1.4rem auto 0; line-height: 1.9; }
+.boho .penutup .names { font-family: var(--script); font-size: clamp(3rem, 14vw, 5rem); color: var(--rust); margin: clamp(1.6rem,5vw,2.4rem) 0 0.2rem; line-height: 0.9; }
+.boho .penutup .fam { font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--taupe); }
+.boho .penutup .credit { margin-top: clamp(2.4rem,7vw,3.4rem); font-size: 0.56rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--taupe); }
+.boho .penutup .credit b { color: var(--rust); font-weight: 500; }
+
+/* ============================================================
+   BOTTOM NAV
+   ============================================================ */
+.boho #nav {
+  position: fixed; left: 50%; transform: translateX(-50%); bottom: clamp(0.8rem, 3vw, 1.4rem); z-index: 120;
+  display: none; align-items: center; gap: 0.3rem; padding: 0.5rem; border-radius: 999px;
+  background: rgba(251,247,239,0.86); backdrop-filter: saturate(150%) blur(10px);
+  border: 1px solid var(--sand); box-shadow: 0 18px 40px -18px rgba(74,63,51,0.45);
+}
+.boho #nav.show { display: flex; }
+.boho #nav button {
+  width: 44px; height: 44px; border-radius: 999px; border: none; background: transparent;
+  color: var(--ink-soft); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .25s, color .25s;
+}
+.boho #nav button:hover, .boho #nav button.active { background: var(--sage-deep); color: #fff; }
+.boho #nav button.music.playing { background: var(--rust); color: #fff; }
+
+@media (max-width: 600px) {
+  .boho .screen { padding-left: 1.25rem; padding-right: 1.25rem; }
+  .boho .corners .c { width: clamp(90px, 30vw, 150px); }
+  .boho #nav { gap: 0.12rem; padding: 0.4rem; }
+  .boho #nav button { width: 40px; height: 40px; }
+  .boho .gal-grid { gap: 0.45rem; }
+  .boho .countdown { gap: 0.5rem; }
+  .boho .cd-unit { min-width: 58px; padding: 0.8rem 0.3rem; }
+}
+@media (max-width: 380px) {
+  .boho #nav button { width: 36px; height: 36px; }
+  .boho .cd-unit { min-width: 52px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .boho .up { opacity: 1 !important; transform: none !important; }
+  .boho .scroll-line { animation: none; }
+  .boho .corners .c, .boho .gate-corners .c { animation: none !important; opacity: 1 !important; transform: none !important; }
+  .boho .bg.slide img { animation: none !important; }
+  .boho .bg.slide img:not(:first-child) { opacity: 0 !important; }
+  .boho .bg.slide img:first-child { opacity: 1 !important; }
+}
