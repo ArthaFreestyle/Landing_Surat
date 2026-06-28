@@ -1,0 +1,312 @@
+/* ============================================================
+   Undangan Pilar Klasik — scoped under .pilar
+   Palet: Emerald · Emas · Marmer gading · Terakota
+   Fonts injected via next/font CSS variables on the wrapper:
+     --font-cormorant · --font-pinyon · --font-jakarta · --font-amiri
+   ============================================================ */
+.pilar {
+  --green:       #134336;
+  --green-deep:  #0c2a20;
+  --green-night: #071c15;
+  --gold:        #C2A14A;
+  --gold-soft:   #E4CE86;
+  --cream:       #F6F0E2;
+  --marble:      #EFE7D6;
+  --terra:       #B65A3C;
+  --ink:         #20271f;
+  --ink-soft:    #5b6356;
+  --serif:  var(--font-cormorant), Georgia, serif;
+  --sans:   var(--font-jakarta), "Helvetica Neue", Helvetica, system-ui, sans-serif;
+  --script: var(--font-pinyon), var(--font-cormorant), cursive;
+  --arab:   var(--font-amiri), "Times New Roman", serif;
+  /* lebar batang pilar yang harus dihindari konten di kiri/kanan */
+  --framepad: clamp(70px, 15vw, 150px);
+  --maxw: 980px;
+
+  position: relative;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-weight: 300;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+.pilar * { box-sizing: border-box; }
+.pilar h1, .pilar h2, .pilar h3 { font-family: var(--serif); font-weight: 400; margin: 0; }
+.pilar img { display: block; max-width: 100%; }
+.pilar ::selection { background: rgba(194,161,74,0.3); color: var(--green-deep); }
+
+.pilar .eyebrow {
+  font-family: var(--sans); font-size: 0.7rem; font-weight: 500;
+  letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold);
+}
+.pilar .script { font-family: var(--script); font-weight: 400; }
+
+/* ---------- Divider ---------- */
+.pilar .divider { display: flex; align-items: center; justify-content: center; gap: 12px; }
+.pilar .divider .ln { width: clamp(40px, 14vw, 96px); height: 1px; background: linear-gradient(90deg, transparent, var(--gold)); }
+.pilar .divider .ln.r { background: linear-gradient(90deg, var(--gold), transparent); }
+.pilar .divider .dot { width: 8px; height: 8px; border: 1px solid var(--gold); transform: rotate(45deg); }
+.pilar .divider .dot.fill { background: var(--gold); }
+
+/* ---------- Photo placeholder ---------- */
+.pilar .photo { position: relative; overflow: hidden; background-color: var(--green-deep);
+  background-image: repeating-linear-gradient(135deg, rgba(246,240,226,0.05) 0 1px, transparent 1px 13px); }
+.pilar .photo > img { width: 100%; height: 100%; object-fit: cover; }
+.pilar .photo[data-label]::after { content: attr(data-label);
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+  font-family: var(--sans); font-size: 0.56rem; letter-spacing: 0.3em;
+  text-transform: uppercase; color: rgba(246,240,226,0.42); white-space: nowrap; pointer-events: none; }
+
+/* ---------- Buttons ---------- */
+.pilar .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.7em;
+  font-family: var(--sans); font-size: 0.72rem; font-weight: 500; letter-spacing: 0.26em;
+  text-transform: uppercase; text-decoration: none; color: var(--green-deep);
+  padding: 1.05em 2.4em; border: 1px solid var(--gold); background: var(--gold-soft); cursor: pointer;
+  transition: background .45s, color .45s, letter-spacing .45s, box-shadow .45s;
+  box-shadow: 0 18px 40px -24px rgba(194,161,74,0.95); }
+.pilar .btn:hover { letter-spacing: 0.32em; background: var(--gold); }
+.pilar .btn--ghost { background: transparent; color: var(--gold-soft); border-color: var(--gold); }
+.pilar .btn--ghost:hover { background: var(--gold); color: var(--green-deep); }
+
+/* ============================================================
+   PILAR — frame parallax (fixed, geser masuk saat scroll)
+   ============================================================ */
+.pilar .pillar { position: fixed; top: 0; height: 100vh; z-index: 90;
+  pointer-events: none; will-change: transform, opacity, filter; opacity: 0.45; }
+.pilar .pillar img { height: 100vh; width: auto; display: block; }
+.pilar .pillar.left  { left: 0;  transform-origin: 0% 100%;   transform: translateX(42vw) scale(0.4); }
+.pilar .pillar.right { right: 0; transform-origin: 100% 100%; transform: translateX(-42vw) scale(0.4); }
+.pilar .pillar.right img { margin-left: auto; }
+
+/* lantai marmer (frame bawah) */
+.pilar .floor { position: fixed; left: 0; right: 0; bottom: 0; z-index: 92; pointer-events: none;
+  height: clamp(36px, 6vw, 76px); }
+.pilar .floor .img { width: 100%; height: 100%; background-image: url('/uploads/bm-777bf91f.webp');
+  background-size: auto 100%; background-repeat: repeat-x; background-position: center bottom;
+  filter: drop-shadow(0 -10px 22px rgba(7,28,21,0.22)); }
+
+/* ============================================================
+   GERBANG / OPENING
+   ============================================================ */
+.pilar .opening { position: fixed; inset: 0; z-index: 200;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 6vh 1.5rem; color: var(--cream); overflow: hidden;
+  background: radial-gradient(120% 90% at 50% 12%, #18553f 0%, var(--green-deep) 48%, var(--green-night) 100%);
+  transition: opacity 1s ease, transform 1.1s cubic-bezier(.7,0,.2,1); }
+.pilar .opening.is-open { opacity: 0; transform: translateY(-12%); pointer-events: none; }
+.pilar .op-wreath { position: relative; width: min(78vw, 360px); aspect-ratio: 1; margin: 0 auto 0.4rem;
+  display: flex; align-items: center; justify-content: center; }
+.pilar .op-wreath img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.pilar .op-wreath .photo { width: 56%; aspect-ratio: 3/4; border-radius: 999px 999px 8px 8px; transform: translateY(-6%); }
+.pilar .op-eyebrow { font-size: 0.62rem; letter-spacing: 0.42em; text-transform: uppercase; color: rgba(246,240,226,0.7); }
+.pilar .op-names { font-family: var(--serif); font-size: clamp(2.4rem, 12vw, 4rem); line-height: 1; margin: 0.3em 0 0.2em; }
+.pilar .op-names .amp { font-family: var(--script); color: var(--gold-soft); font-size: 0.7em; margin: 0 0.12em; }
+.pilar .op-to { margin-top: 1.6rem; }
+.pilar .op-to .label { display: block; font-size: 0.54rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(246,240,226,0.55); margin-bottom: 0.5rem; }
+.pilar .op-to .guest { font-family: var(--serif); font-size: 1.5rem; color: var(--cream); }
+.pilar .openBtn { margin-top: 2rem; }
+
+/* ============================================================
+   SCAFFOLD
+   ============================================================ */
+.pilar section { position: relative; }
+.pilar .wrap { max-width: var(--maxw); margin: 0 auto; padding-left: var(--framepad); padding-right: var(--framepad); }
+.pilar .pad { padding-top: clamp(4.5rem, 13vw, 8.5rem); padding-bottom: clamp(4.5rem, 13vw, 8.5rem); }
+.pilar .reveal { opacity: 0; transform: translateY(34px); transition: opacity 1s ease, transform 1.1s cubic-bezier(.2,.7,.2,1); }
+.pilar .reveal.in { opacity: 1; transform: none; }
+.pilar .stage { position: relative; overflow: hidden; }
+.pilar .layer { position: absolute; inset: -16% 0; will-change: transform; pointer-events: none; }
+.pilar .layer img { width: 100%; height: 100%; object-fit: cover; }
+
+/* marmer pemisah */
+.pilar .marble-strip { width: 100%; height: clamp(34px, 6vw, 64px);
+  background-image: url('/uploads/bm.webp'); background-size: auto 100%; background-repeat: repeat-x; background-position: center; }
+
+/* corner florals */
+.pilar .corner { position: absolute; bottom: 0; width: clamp(150px, 30vw, 300px); z-index: 4; pointer-events: none; opacity: 0.96; }
+.pilar .corner.bl { left: 0; }
+.pilar .corner.br { right: 0; }
+
+/* ---------- HERO ---------- */
+.pilar .hero { min-height: 100vh; min-height: 100svh; display: flex; align-items: center; justify-content: center; text-align: center; }
+@supports (height: 100dvh) { .pilar .hero { min-height: 100dvh; } }
+.pilar .hero .bg { z-index: 0; }
+.pilar .hero .bg img { opacity: 1; }
+.pilar .hero-scrim { position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(180deg, rgba(7,28,21,0.55) 0%, rgba(7,28,21,0.2) 38%, rgba(7,28,21,0.4) 72%, var(--green-night) 100%); }
+.pilar .hero-inner { position: relative; z-index: 100; color: var(--cream); max-width: 820px;
+  padding: clamp(2.2rem, 4vh, 3.4rem) 1.5rem calc(clamp(2.2rem, 4vh, 3.4rem) + 4.5rem); }
+.pilar .hero-bismillah { font-family: var(--arab); font-size: clamp(1.1rem, 4.6vw, 1.6rem); color: var(--gold-soft); margin-bottom: 0.85rem; line-height: 1.55; }
+.pilar .hero-portrait { width: clamp(118px, 30vw, 158px); aspect-ratio: 3/4; margin: 0.85rem auto 1.05rem; position: relative;
+  border-radius: 50% 50% 12px 12px / 34% 34% 9px 9px; padding: 6px;
+  background: linear-gradient(160deg, var(--gold-soft), var(--gold) 48%, #9c7d2e);
+  box-shadow: 0 34px 66px -30px rgba(0,0,0,0.72); }
+.pilar .hero-portrait .photo { width: 100%; height: 100%; border-radius: inherit; }
+.pilar .hero-portrait .photo img { object-position: center 16%; }
+.pilar .hero-portrait::after { content: ""; position: absolute; inset: 6px; border-radius: inherit;
+  border: 1px solid rgba(255,255,255,0.55); pointer-events: none; }
+.pilar .hero-eyebrow { font-size: clamp(0.56rem, 2.2vw, 0.7rem); letter-spacing: 0.4em; text-transform: uppercase; color: rgba(246,240,226,0.82); }
+.pilar .hero-names { font-family: var(--serif); font-size: clamp(2.4rem, 10.5vw, 5.2rem); line-height: 0.96; margin: 0.18em 0 0.18em; }
+.pilar .hero-names .amp { display: block; font-family: var(--script); color: var(--gold-soft); font-size: 0.46em; margin: 0.02em 0; }
+.pilar .hero-date { font-size: clamp(0.62rem, 2.8vw, 0.8rem); letter-spacing: 0.26em; text-transform: uppercase; color: rgba(246,240,226,0.9); }
+.pilar .hero-date b { color: var(--gold-soft); font-weight: 400; }
+.pilar .scroll-cue { position: absolute; bottom: 1.8rem; left: 0; right: 0; z-index: 101;
+  display: flex; flex-direction: column; align-items: center; gap: 0.6rem; color: rgba(246,240,226,0.8); }
+.pilar .scroll-cue span { font-size: 0.52rem; letter-spacing: 0.3em; text-transform: uppercase; }
+.pilar .scroll-line { width: 1px; height: 42px; background: rgba(246,240,226,0.5); transform-origin: top; animation: pk-scrollPulse 2.4s ease-in-out infinite; }
+@keyframes pk-scrollPulse { 0%,100% { transform: scaleY(0.4); opacity: 0.4; } 50% { transform: scaleY(1); opacity: 1; } }
+
+/* ---------- AYAT ---------- */
+.pilar .doa { background: var(--green); color: var(--cream); text-align: center; }
+.pilar .doa .wrap { position: relative; z-index: 2; max-width: 680px; }
+.pilar .doa .ayat { font-family: var(--arab); font-size: clamp(1.6rem, 7vw, 2.7rem); line-height: 1.95; color: var(--gold-soft); margin: 1.4rem 0; }
+.pilar .doa .terjemah { font-family: var(--serif); font-style: italic; font-size: clamp(1.1rem, 4.2vw, 1.6rem); line-height: 1.6; color: var(--cream); text-wrap: balance; }
+.pilar .doa .ref { margin-top: 1.4rem; font-size: 0.62rem; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); }
+
+/* ---------- COUPLE PORTRAIT (wreath) ---------- */
+.pilar .portrait { background: var(--marble); text-align: center; overflow: hidden; }
+.pilar .portrait .wreath-wrap { position: relative; width: min(82vw, 460px); aspect-ratio: 1; margin: 0 auto clamp(1.6rem,5vw,2.6rem); }
+.pilar .portrait .wreath-wrap .photo { position: absolute; left: 50%; top: 46%; transform: translate(-50%,-50%);
+  width: 62%; aspect-ratio: 3/4; border-radius: 260px 260px 12px 12px; box-shadow: 0 30px 60px -34px rgba(7,28,21,0.6); }
+.pilar .portrait .wreath-wrap > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; z-index: 2; }
+.pilar .portrait .lead { font-family: var(--serif); font-style: italic; font-size: clamp(1.15rem,4.4vw,1.7rem); color: var(--ink-soft); max-width: 38rem; margin: 0 auto; }
+
+/* ---------- MEMPELAI ---------- */
+.pilar .mempelai { background: var(--cream); }
+.pilar .couple { display: grid; grid-template-columns: 1fr; gap: clamp(2.2rem, 6vw, 3.4rem); }
+.pilar .person { text-align: center; }
+.pilar .person .role { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); }
+.pilar .person h3 { font-size: clamp(2rem, 6.5vw, 3rem); line-height: 1.04; margin: 0.5rem 0 0.2rem; color: var(--green-deep); }
+.pilar .person .bin { font-family: var(--serif); font-style: italic; font-size: 1.2rem; color: var(--ink-soft); }
+.pilar .person .parents { font-size: 0.85rem; color: var(--ink-soft); line-height: 1.7; margin: 1rem auto 0; max-width: 26rem; }
+.pilar .couple-amp { font-family: var(--script); font-size: clamp(3rem, 11vw, 4.6rem); color: var(--gold); line-height: 0.2; }
+
+/* ---------- SAVE THE DATE ---------- */
+.pilar .savedate { color: var(--cream); text-align: center; }
+.pilar .savedate .bg { z-index: 0; }
+.pilar .savedate .veil { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(7,28,21,0.84), rgba(12,42,32,0.8)); }
+.pilar .savedate .wrap { position: relative; z-index: 3; }
+.pilar .savedate h2 { font-size: clamp(2.2rem, 8vw, 3.8rem); color: var(--cream); }
+.pilar .savedate .big-date { font-family: var(--serif); font-size: clamp(2.6rem, 11vw, 4.8rem); color: var(--gold-soft); margin: 0.3rem 0 0.2rem; }
+.pilar .savedate .place { font-size: 0.76rem; letter-spacing: 0.24em; text-transform: uppercase; color: rgba(246,240,226,0.82); }
+.pilar .countdown { display: flex; flex-wrap: wrap; justify-content: center; gap: clamp(0.8rem, 5vw, 2.6rem); margin-top: clamp(2.4rem, 7vw, 3.6rem); }
+.pilar .cd-unit { min-width: 62px; }
+.pilar .cd-num { font-family: var(--serif); font-size: clamp(2.4rem, 10vw, 3.6rem); line-height: 1; color: var(--cream); }
+.pilar .cd-label { font-size: 0.52rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-top: 0.55rem; }
+.pilar .cal-btn { margin-top: clamp(2.2rem, 6vw, 3rem); }
+
+/* ---------- ACARA ---------- */
+.pilar .acara { background: var(--cream); }
+.pilar .sec-head { text-align: center; margin-bottom: clamp(2.4rem, 7vw, 4rem); }
+.pilar .sec-head .eyebrow { display: block; margin-bottom: 1rem; }
+.pilar .sec-head h2 { font-size: clamp(2.2rem, 8vw, 3.8rem); color: var(--green-deep); }
+.pilar .sec-head .sub { font-size: 0.88rem; color: var(--ink-soft); margin: 1rem auto 0; max-width: 32rem; }
+.pilar .events { display: grid; grid-template-columns: 1fr 1px 1fr; gap: clamp(1.8rem, 6vw, 4rem); align-items: stretch; }
+.pilar .v-divider { width: 1px; background: linear-gradient(180deg, transparent, var(--gold), transparent); }
+.pilar .event { text-align: center; }
+.pilar .event .kicker { font-size: 0.62rem; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); }
+.pilar .event h3 { font-size: clamp(1.8rem, 6vw, 2.4rem); color: var(--green-deep); margin: 0.6rem 0 0.2rem; }
+.pilar .event .when { font-family: var(--serif); font-style: italic; font-size: 1.2rem; color: var(--ink-soft); }
+.pilar .event .detail { font-size: 0.9rem; color: var(--ink-soft); line-height: 1.7; margin-top: 1rem; }
+.pilar .event .detail b { color: var(--green-deep); font-weight: 500; }
+
+/* ---------- GALERI ---------- */
+.pilar .galeri { background: var(--green-deep); }
+.pilar .galeri .sec-head h2 { color: var(--cream); }
+.pilar .galeri .sec-head .sub { color: rgba(246,240,226,0.7); }
+.pilar .gal-grid { display: grid; grid-template-columns: repeat(6, 1fr); grid-auto-rows: 86px; gap: clamp(0.5rem, 1.4vw, 0.85rem); }
+.pilar .gal-grid .photo { border: 1px solid rgba(194,161,74,0.28); }
+.pilar .g1 { grid-column: span 2; grid-row: span 3; }
+.pilar .g2 { grid-column: span 2; grid-row: span 2; }
+.pilar .g3 { grid-column: span 2; grid-row: span 2; }
+.pilar .g4 { grid-column: span 2; grid-row: span 2; }
+.pilar .g5 { grid-column: span 4; grid-row: span 2; }
+
+/* ---------- LOKASI ---------- */
+.pilar .lokasi { background: var(--cream); }
+.pilar .map-card { position: relative; border: 10px solid; border-image: linear-gradient(135deg, var(--gold-soft), var(--gold) 50%, #9c7d2e) 1;
+  background: var(--green-deep); height: clamp(270px, 44vw, 430px); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.pilar .map-card .mapbg { position: absolute; inset: 0; color: rgba(194,161,74,0.18);
+  background-image: repeating-linear-gradient(45deg, currentColor 0 1px, transparent 1px 13px), repeating-linear-gradient(-45deg, currentColor 0 1px, transparent 1px 13px); }
+.pilar .map-card .pin { position: relative; z-index: 2; text-align: center; color: var(--cream); }
+.pilar .map-card .pin .ic { width: 52px; height: 52px; margin: 0 auto 1rem; border-radius: 999px; border: 1px solid var(--gold);
+  display: flex; align-items: center; justify-content: center; background: rgba(7,28,21,0.6); }
+.pilar .map-card .pin .nm { font-family: var(--serif); font-size: 1.5rem; }
+.pilar .map-card .pin .ad { font-size: 0.8rem; color: rgba(246,240,226,0.75); margin-top: 0.3rem; }
+.pilar .lokasi .actions { display: flex; justify-content: center; margin-top: clamp(1.8rem, 5vw, 2.6rem); }
+
+/* ---------- RSVP ---------- */
+.pilar .rsvp { color: var(--cream); }
+.pilar .rsvp .bg { z-index: 0; }
+.pilar .rsvp .veil { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(7,28,21,0.88), rgba(12,42,32,0.84)); }
+.pilar .rsvp .wrap { position: relative; z-index: 3; max-width: 620px; }
+.pilar .rsvp .sec-head h2 { color: var(--cream); }
+.pilar .rsvp .sec-head .sub { color: rgba(246,240,226,0.72); }
+.pilar .form { display: flex; flex-direction: column; gap: 1.1rem; }
+.pilar .field label { display: block; font-size: 0.58rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem; }
+.pilar .field input, .pilar .field textarea { width: 100%; background: rgba(246,240,226,0.06); border: 1px solid rgba(194,161,74,0.4);
+  color: var(--cream); font-family: var(--sans); font-size: 1rem; padding: 0.9rem 1rem; outline: none; transition: border-color .3s, background .3s; }
+.pilar .field input:focus, .pilar .field textarea:focus { border-color: var(--gold); background: rgba(246,240,226,0.1); }
+.pilar .field textarea { resize: vertical; min-height: 92px; }
+.pilar .attend { display: flex; gap: 0.8rem; }
+.pilar .attend button { flex: 1; background: transparent; border: 1px solid rgba(194,161,74,0.4); color: rgba(246,240,226,0.85);
+  font-family: var(--sans); font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; padding: 0.9rem; cursor: pointer; transition: all .3s; }
+.pilar .attend button.sel { background: var(--gold); color: var(--green-deep); border-color: var(--gold); }
+.pilar .rsvp .form .btn { margin-top: 0.4rem; width: 100%; }
+.pilar .rsvp-thanks { text-align: center; padding: 1rem 0; }
+.pilar .rsvp-thanks .sc { font-family: var(--script); font-size: 2.6rem; color: var(--gold-soft); }
+.pilar .rsvp-thanks p { font-family: var(--serif); font-style: italic; font-size: 1.3rem; color: var(--cream); margin-top: 0.4rem; }
+
+/* ---------- WISHES ---------- */
+.pilar .wishes { background: var(--cream); }
+.pilar .wish-list { display: grid; gap: 1rem; max-width: 640px; margin: clamp(2rem,5vw,3rem) auto 0; }
+.pilar .wish { border: 1px solid rgba(194,161,74,0.35); background: #fff; padding: 1.15rem 1.35rem; }
+.pilar .wish .w-name { font-family: var(--serif); font-size: 1.2rem; color: var(--green-deep); }
+.pilar .wish .w-name span { font-family: var(--sans); font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-left: 0.7rem; }
+.pilar .wish .w-msg { font-size: 0.92rem; color: var(--ink-soft); margin-top: 0.4rem; }
+
+/* ---------- PENUTUP ---------- */
+.pilar .penutup { color: var(--cream); text-align: center; }
+.pilar .penutup .bg { z-index: 0; }
+.pilar .penutup .scrim { position: absolute; inset: 0; z-index: 1; background: radial-gradient(110% 80% at 50% 30%, rgba(12,42,32,0.5), var(--green-night) 86%); }
+.pilar .penutup .wrap { position: relative; z-index: 3; }
+.pilar .penutup .salam { font-family: var(--arab); font-size: clamp(1.3rem, 5.5vw, 2rem); color: var(--gold-soft); line-height: 1.7; }
+.pilar .penutup .msg { max-width: 38rem; margin: 1.4rem auto 0; font-size: 0.95rem; color: rgba(246,240,226,0.82); line-height: 1.9; }
+.pilar .penutup .names { font-family: var(--serif); font-size: clamp(2.6rem, 11vw, 4.6rem); color: var(--cream); margin: clamp(1.8rem,5vw,2.6rem) 0 0.3rem; }
+.pilar .penutup .names .amp { font-family: var(--script); color: var(--gold-soft); }
+.pilar .penutup .fam { font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); }
+.pilar .penutup .credit { margin-top: clamp(2.8rem,8vw,4.4rem); font-size: 0.58rem; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(246,240,226,0.4); }
+.pilar .penutup .credit b { color: var(--gold-soft); font-weight: 400; }
+
+/* ---------- AUDIO ---------- */
+.pilar .musicBtn { position: fixed; right: clamp(1rem, 4vw, 2rem); bottom: clamp(1rem, 4vw, 2rem); z-index: 120;
+  width: 50px; height: 50px; border-radius: 999px; border: 1px solid var(--gold); cursor: pointer;
+  background: rgba(7,28,21,0.82); color: var(--gold-soft); backdrop-filter: blur(6px);
+  display: none; align-items: center; justify-content: center; box-shadow: 0 14px 30px -14px rgba(0,0,0,0.7); transition: transform .3s; }
+.pilar .musicBtn.show { display: flex; }
+.pilar .musicBtn:hover { transform: scale(1.06); }
+.pilar .musicBtn .bars { display: flex; align-items: flex-end; gap: 2.5px; height: 17px; }
+.pilar .musicBtn .bars i { width: 2.5px; background: currentColor; height: 30%; border-radius: 2px; }
+.pilar .musicBtn.playing .bars i { animation: pk-eq 0.9s ease-in-out infinite; }
+.pilar .musicBtn .bars i:nth-child(2) { animation-delay: .15s; }
+.pilar .musicBtn .bars i:nth-child(3) { animation-delay: .3s; }
+.pilar .musicBtn .bars i:nth-child(4) { animation-delay: .45s; }
+@keyframes pk-eq { 0%,100% { height: 25%; } 50% { height: 100%; } }
+
+@media (max-width: 600px) {
+  .pilar .events { grid-template-columns: 1fr; gap: 2.2rem; }
+  .pilar .v-divider { width: 60%; height: 1px; justify-self: center; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+  .pilar .gal-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 116px; }
+  .pilar .g1,.pilar .g2,.pilar .g3,.pilar .g4,.pilar .g5 { grid-column: span 1; grid-row: span 1; }
+  .pilar .g1 { grid-column: span 2; grid-row: span 2; }
+  .pilar .g5 { grid-column: span 2; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pilar .reveal { opacity: 1 !important; transform: none !important; }
+  .pilar .scroll-line { animation: none; }
+  .pilar .pillar.left, .pilar .pillar.right { transform: none !important; opacity: 1 !important; filter: none !important; }
+}
